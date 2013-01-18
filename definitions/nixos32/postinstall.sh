@@ -10,33 +10,14 @@ rm -f ~/*.iso
 su - vagrant -c 'gem install chef puppet --user-install \
   --bindir=$HOME/bin --no-rdoc --no-ri'
 
-# ***TEMPORARILY*** clone Tim Dysinger's nixos repos to get VirtualBox
-# Guest Additions working correctly.
-
-git clone --depth=1 --branch=develop \
-    git://github.com/dysinger/nixos.git \
-    /etc/nixos/nixos
-
-git clone --depth=1 --branch=develop \
-    git://github.com/dysinger/nixpkgs.git \
-    /etc/nixos/nixpkgs
-
-# ***TEMPORARILY*** Rebuild with the lastest (now working) VirtualBox
-# 4.2.6 Guest Additions from the develop branch @ our git repo in
-# /etc/nixos/nixpkgs
-
-export NIX_PATH=\
-nixos-config=/etc/nixos/configuration.nix:\
-nixos=/etc/nixos/nixos:\
-nixpkgs=/etc/nixos/nixpkgs:\
-services=/etc/nixos/services
+# Make sure we are totally up to date
 
 nixos-rebuild --upgrade switch
 
 # Cleanup any previous generations and delete old packages that can be
 # pruned.
 
-for x in `seq 0 6` ; do
+for x in `seq 0 2` ; do
     nix-env --delete-generations old
     nix-collect-garbage -d
 done
