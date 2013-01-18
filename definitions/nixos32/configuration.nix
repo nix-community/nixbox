@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 {
-  require = [
-    <nixos/modules/installer/scan/not-detected.nix>
-    <nixos/modules/profiles/headless.nix>
-    <nixos/modules/profiles/minimal.nix>
-  ];
+  require = [ <nixos/modules/installer/scan/not-detected.nix> ];
   boot = {
     initrd.kernelModules = [ "ata_piix" "ahci" ];
     loader.grub.device   = "/dev/sda";
