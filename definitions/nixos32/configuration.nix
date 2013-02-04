@@ -1,8 +1,7 @@
 { config, pkgs, ... }:
 {
-  require = [ <nixos/modules/installer/scan/not-detected.nix> ];
+  require = [ ./hardware-configuration.nix ];
   boot = {
-    initrd.kernelModules = [ "ata_piix" "ahci" ];
     loader.grub.device   = "/dev/sda";
   };
   environment.systemPackages = with pkgs; [ git ruby rubygems gnumake gcc ];
@@ -20,7 +19,6 @@
   services = {
     dbus.enable       = true;
     openssh.enable    = true;
-    virtualbox.enable = true;
   };
   users = {
     extraGroups = [ { name = "vagrant"; } { name = "vboxsf"; } ];
