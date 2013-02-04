@@ -8,6 +8,7 @@ session = {
   [
    '<Enter>', '<Wait>'*15,
    'root',                                              '<Enter>',
+   'stop sshd',                                         '<Enter>', # Make sure we don't accept connections until reboot
    'fdisk /dev/sda',                                    '<Enter>',
    'n',                                                 '<Enter>'*5,
    'a',                                                 '<Enter>',
