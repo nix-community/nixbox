@@ -16,7 +16,7 @@ session = {
    'w',                                                 '<Enter>',
    'mkfs.ext4 -j -L nixos /dev/sda1',                   '<Enter>',
    'mount LABEL=nixos /mnt',                            '<Enter>',
-   'curl -O http://10.0.2.2:7122/configuration.nix &&', '<Enter>',
+   'curl -O http://%IP%:%PORT%/configuration.nix &&',   '<Enter>',
    'mkdir -p /mnt/etc/nixos &&',                        '<Enter>',
    'mv configuration.nix /mnt/etc/nixos &&',            '<Enter>',
    'nixos-install &&',                                  '<Enter>',
