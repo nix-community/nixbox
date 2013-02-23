@@ -1,6 +1,6 @@
 iso = {
-  :file => 'nixos-minimal-0.2pre4454_979117b-789154b-i686-linux.iso',
-  :md5  => '0f3a1a5a531b01819ec17a0feeea11e6',
+  :url => 'http://nixos.org/releases/nixos/nixos-0.2pre4476_a5e4432-b076ab9/nixos-minimal-0.2pre4476_a5e4432-b076ab9-i686-linux.iso',
+  :md5  => 'f035bb375f0fbcbbc4e33a12131e91d4',
 }
 
 session = {
@@ -27,9 +27,9 @@ session = {
   :disk_size            => '20400',
   :hostiocache          => 'off',
   :iso_download_timeout => '1000',
-  :iso_file             => iso[:file],
+  :iso_file             => File.basename(iso[:url]),
   :iso_md5              => iso[:md5],
-  :iso_src              => "http://nixos.org/releases/nixos/#{iso[:file].gsub(/-[^-]+-linux.iso$/,'')}/#{iso[:file]}",
+  :iso_src              => iso[:url],
   :kickstart_file       => 'configuration.nix',
   :kickstart_port       => '7122',
   :kickstart_timeout    => '10000',
