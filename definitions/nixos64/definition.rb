@@ -1,6 +1,6 @@
 iso = {
-  :url => 'http://nixos.org/releases/nixos/nixos-0.2pre4587_9000fd8-cfbdb33/nixos-minimal-0.2pre4587_9000fd8-cfbdb33-x86_64-linux.iso',
-  :md5  => 'f61180f387e72ee85b8f68273e5ff884',
+  :url => 'http://nixos.org/releases/nixos/nixos-0.2pre4476_a5e4432-b076ab9/nixos-minimal-0.2pre4476_a5e4432-b076ab9-x86_64-linux.iso',
+  :md5 => '3e0a95f0b7634022e1b0d88c6fc5ab17',
 }
 
 session = {
@@ -34,7 +34,7 @@ session = {
   :kickstart_port       => '7122',
   :kickstart_timeout    => '10000',
   :memory_size          => '256',
-  :os_type_id           => 'Linux26',
+  :os_type_id           => 'Linux26_64',
   :postinstall_files    => [ 'postinstall.sh' ],
   :postinstall_timeout  => '10000',
   :shutdown_cmd         => 'shutdown -h now',
