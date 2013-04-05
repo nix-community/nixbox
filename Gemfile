@@ -4,6 +4,6 @@
 source 'https://rubygems.org'
 
 group :vagrant do
-  gem 'vagrant', '~> 1.0.5'
-  gem 'veewee',  '~> 0.3.1'
+  #gem 'vagrant', github: 'mitchellh/vagrant', branch: 'v1.1.5 '
+  gem 'veewee',  github: 'jedi4ever/veewee'
 end
