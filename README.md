@@ -1,10 +1,10 @@
 NixOS boxes for Vagrant
 =======================
 
-```
-bundle
-bundle exec veewee vbox build nixos32
-bundle exec veewee vbox export nixos32
-```
+First install packer: http://packer.io (or `brew install packer`)
 
-There's also a nixos64 version but it's still failing to build.
+Then:
+
+```
+packer build --only=virtualbox nixos32-template.json
+```
