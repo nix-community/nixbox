@@ -1,20 +1,6 @@
 {
-  "provisioners": [
-    {
-      "type": "shell",
-      "scripts": [
-        "scripts/postinstall.sh"
-      ],
-      "override": {
-        "virtualbox": {
-          "execute_command": "sudo '{{.Path}}'"
-        }
-      }
-    }
-  ],
   "builders": [
     {
-      "type": "virtualbox",
       "boot_command": [
         "<enter><wait>",
         "<wait><wait><wait><wait><wait><wait><wait><wait><wait><wait><wait><wait><wait><wait><wait><wait>",
@@ -38,27 +24,27 @@
         "<enter><wait>",
         "nixos-option --install<wait>",
         "<enter><wait>",
-        "curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/configuration.nix > /mnt/etc/nixos/configuration.nix &&<wait>",
+        "curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/configuration.nix > /mnt/etc/nixos/configuration.nix \u0026\u0026<wait>",
         "<enter><wait>",
-        "nixos-install &&<wait>",
+        "nixos-install \u0026\u0026<wait>",
         "<enter><wait>",
         "reboot<wait>",
         "<enter><wait>"
       ],
       "boot_wait": "5s",
       "disk_size": 20400,
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_os_type": "Linux26",
       "http_directory": "http",
       "iso_checksum": "b1a78fc1b72ea1a19957cb1422817ab6",
       "iso_checksum_type": "md5",
       "iso_url": "http://nixos.org/releases/nixos/nixos-13.07pre4871_18de9f6-3c35dae/nixos-minimal-13.07pre4871_18de9f6-3c35dae-i686-linux.iso",
-      "ssh_username": "vagrant",
+      "shutdown_command": "sudo shutdown -h now",
       "ssh_password": "vagrant",
       "ssh_port": 22,
+      "ssh_username": "vagrant",
       "ssh_wait_timeout": "10000s",
-      "shutdown_command": "sudo shutdown -h now",
-      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-      "virtualbox_version_file": ".vbox_version",
+      "type": "virtualbox",
       "vboxmanage": [
         [
           "modifyvm",
@@ -72,7 +58,22 @@
           "--cpus",
           "1"
         ]
-      ]
+      ],
+      "virtualbox_version_file": ".vbox_version"
+    }
+  ],
+  "provisioners": [
+    {
+      "override": {
+        "virtualbox": {
+          "execute_command": "sudo '{{.Path}}'"
+        }
+      },
+      "scripts": [
+        "scripts/postinstall.sh"
+      ],
+      "type": "shell"
     }
   ]
 }
+
