@@ -1,17 +1,9 @@
 #!/bin/sh
 
-# Remove VirtualBox Guest Additions ISO that the Veewee put in our
-# home dir
-
-rm -f ~/*.iso
-
-# Install chef & puppet
-
-#su - vagrant -c 'gem install chef puppet --user-install --bindir=$HOME/bin --no-rdoc --no-ri'
-
 # Make sure we are totally up to date
 
-nixos-rebuild --upgrade switch
+nix-channel --add http://nixos.org/channels/nixos-13.10 nixos
+nixos-rebuild switch --upgrade
 
 # Cleanup any previous generations and delete old packages that can be
 # pruned.
