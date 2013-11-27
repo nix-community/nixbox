@@ -1,25 +1,37 @@
 { config, pkgs, ... }:
+
 {
-  require = [ ./hardware-configuration.nix ];
-  boot = {
-    loader.grub.device   = "/dev/sda";
-  };
-  environment.systemPackages = with pkgs; [ git gnumake gcc ruby rubygems python ];
-  fileSystems = [ { mountPoint = "/"; label = "nixos"; } ];
-  security.sudo.configFile =
-    ''
-      Defaults:root,%wheel env_keep+=LOCALE_ARCHIVE
-      Defaults:root,%wheel env_keep+=NIX_PATH
-      Defaults:root,%wheel env_keep+=TERMINFO_DIRS
-      Defaults env_keep+=SSH_AUTH_SOCK
-      Defaults lecture = never
-      root   ALL=(ALL) SETENV: ALL
-      %wheel ALL=(ALL) NOPASSWD: ALL, SETENV: ALL
-    '';
-  services = {
-    dbus.enable       = true;
-    openssh.enable    = true;
-  };
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+    ];
+
+  # Use the GRUB 2 boot loader.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.version = 2;
+  boot.loader.grub.device = "/dev/sda";
+
+  networking.hostName = "nixbox";
+
+  # Services to enable:
+
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+
+  # Enable DBus
+  services.dbus.enable    = true;
+
+  # Default packages
+  environment.systemPackages = with pkgs; [
+    gcc
+    git
+    gnumake
+    python
+    ruby
+    rubygems
+  ];
+
+  # Creates a "vagrant" users with password-less sudo access
   users = {
     extraGroups = [ { name = "vagrant"; } { name = "vboxsf"; } ];
     extraUsers  = [ {
@@ -36,4 +48,16 @@
       ];
     } ];
   };
+
+  security.sudo.configFile =
+    ''
+      Defaults:root,%wheel env_keep+=LOCALE_ARCHIVE
+      Defaults:root,%wheel env_keep+=NIX_PATH
+      Defaults:root,%wheel env_keep+=TERMINFO_DIRS
+      Defaults env_keep+=SSH_AUTH_SOCK
+      Defaults lecture = never
+      root   ALL=(ALL) SETENV: ALL
+      %wheel ALL=(ALL) NOPASSWD: ALL, SETENV: ALL
+    '';
+
 }
