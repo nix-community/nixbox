@@ -39,6 +39,9 @@
       "execute_command": "sudo sh '{{.Path}}'",
       "script": "scripts/postinstall.sh"
     }
+  ],
+  "post-processors": [
+    { "type": "vagrant" }
   ]
 }
 
