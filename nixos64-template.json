@@ -13,7 +13,7 @@
         "1<enter>",
         "w<enter>",
         "<wait>",
-        "mkfs.ext4 -j -L nixos /dev/sda1<enter><wait><wait><wait>",
+        "mkfs.ext4 -j -L nixos /dev/sda1<enter><wait5>",
         "mount LABEL=nixos /mnt<enter><wait>",
         "nixos-generate-config --root /mnt<enter><wait>",
         "curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/configuration.nix > /mnt/etc/nixos/configuration.nix<enter><wait>",
@@ -36,7 +36,7 @@
   "provisioners": [
     {
       "type": "shell",
-      "execute_command": "sudo '{{.Path}}'",
+      "execute_command": "sudo sh '{{.Path}}'",
       "script": "scripts/postinstall.sh"
     }
   ]
