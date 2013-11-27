@@ -10,6 +10,17 @@ Status
 
 stable
 
+Install
+-------
+
+```
+vagrant box add nixbox32 http://zimbatm.s3.amazonaws.com/nixbox/nixos32-virtualbox.box
+vagrant init nixbox32
+# or
+vagrant box add nixbox64 http://zimbatm.s3.amazonaws.com/nixbox/nixos64-virtualbox.box
+vagrant init nixbox64
+```
+
 Building the images
 -------------------
 
