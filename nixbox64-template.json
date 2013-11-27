@@ -16,15 +16,15 @@
         "mkfs.ext4 -j -L nixos /dev/sda1<enter><wait5>",
         "mount LABEL=nixos /mnt<enter><wait>",
         "nixos-generate-config --root /mnt<enter><wait>",
-        "curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/configuration.nix > /mnt/etc/nixos/configuration.nix<enter><wait>",
+        "curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/configuration.nix | sed -e 's|nixbox|nixbox64|g' > /mnt/etc/nixos/configuration.nix<enter><wait>",
         "nixos-install && reboot<enter>"
       ],
       "guest_additions_mode": "disable",
-      "guest_os_type": "GUEST_OS",
+      "guest_os_type": "Linux_64",
       "http_directory": "http",
-      "iso_checksum": "ISO_MD5",
+      "iso_checksum": "fbac8c11661028e6f9c4ec293e1329e1",
       "iso_checksum_type": "md5",
-      "iso_url": "ISO_URL",
+      "iso_url": "http://nixos.org/releases/nixos/13.10/nixos-13.10.35455.45219b9/nixos-minimal-13.10.35455.45219b9-x86_64-linux.iso",
       "shutdown_command": "sudo shutdown -h now",
       "ssh_password": "vagrant",
       "ssh_port": 22,
@@ -41,7 +41,10 @@
     }
   ],
   "post-processors": [
-    { "type": "vagrant" }
+    {
+      "type": "vagrant",
+      "output": "nixbox64-{{.Provider}}.box"
+    }
   ]
 }
 
