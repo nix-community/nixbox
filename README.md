@@ -40,6 +40,6 @@ The .box image is now ready to go and you can use it in vagrant:
 ```
 vagrant box add nixbox32 nixbox32-virtualbox.box
 # or
-vagrant box add nixbox64-nixbox64-virtualbox.box
+vagrant box add nixbox64 nixbox64-virtualbox.box
 ```
 
