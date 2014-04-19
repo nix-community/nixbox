@@ -41,3 +41,9 @@ vagrant box add nixbox32 nixbox32-virtualbox.box
 vagrant box add nixbox64 nixbox64-virtualbox.box
 ```
 
+TODO
+----
+
+There is a `vagrant-nixos` gem out there that adds a NixOS provisioning
+option to vagrant. Test this out.
+
