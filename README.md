@@ -14,7 +14,7 @@ Install
 -------
 
 ```
-vagrant init zimbat/nixbox32
+vagrant init zimbatm/nixbox32
 # or
 vagrant init zimbatm/nixbox64
 ```
