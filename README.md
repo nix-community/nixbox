@@ -19,6 +19,9 @@ vagrant init zimbatm/nixbox32
 vagrant init zimbatm/nixbox64
 ```
 
+Also have a look at the nixos vagrant plugin:
+https://github.com/oxdi/vagrant-nixos
+
 Building the images
 -------------------
 
@@ -41,9 +44,8 @@ vagrant box add nixbox32 nixbox32-virtualbox.box
 vagrant box add nixbox64 nixbox64-virtualbox.box
 ```
 
-TODO
-----
+License
+-------
 
-There is a `vagrant-nixos` gem out there that adds a NixOS provisioning
-option to vagrant. Test this out.
+Copyright 2014 under the MIT
 
