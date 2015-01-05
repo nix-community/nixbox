@@ -1,10 +1,10 @@
 
-ISO_URL_32=http://releases.nixos.org/nixos/14.04/nixos-14.04.393.6593a98/nixos-minimal-14.04.393.6593a98-i686-linux.iso
-ISO_MD5_32=dc14e90e601991a69ae23ff8bafdefb2
+ISO_URL_32=http://nixos.org/releases/nixos/14.12/nixos-14.12.231.139ead2/nixos-minimal-14.12.231.139ead2-i686-linux.iso
+ISO_MD5_32=0825f20b9f63b44d4f58dd4c205bdeeb
 GUEST_OS_32=Linux
 
-ISO_URL_64=http://releases.nixos.org/nixos/14.04/nixos-14.04.393.6593a98/nixos-minimal-14.04.393.6593a98-x86_64-linux.iso
-ISO_MD5_64=13f5f51897ebf491c2b8db5274bafe1d
+ISO_URL_64=http://nixos.org/releases/nixos/14.12/nixos-14.12.231.139ead2/nixos-minimal-14.12.231.139ead2-x86_64-linux.iso
+ISO_MD5_64=d0f4cf841d0502dc96c68c13cb21a0e2
 GUEST_OS_64=Linux_64
 
 all: nixbox32-template.json nixbox64-template.json
