@@ -21,16 +21,6 @@
   # Enable DBus
   services.dbus.enable    = true;
 
-  # Default packages
-  environment.systemPackages = with pkgs; [
-    gcc
-    git
-    gnumake
-    python
-    ruby
-    rubygems
-  ];
-
   # Creates a "vagrant" users with password-less sudo access
   users = {
     extraGroups = [ { name = "vagrant"; } { name = "vboxsf"; } ];
