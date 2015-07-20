@@ -2,44 +2,32 @@
   "builders": [
     {
       "type": "virtualbox-iso",
-      "boot_wait": "1m",
+      "boot_wait": "4s",
       "boot_command": [
+        "<enter><wait5><wait5>",
         "root<enter>",
-        "stop sshd<enter>",
-        "fdisk /dev/sda<enter>",
-        "n",
-        "<enter><enter><enter><enter><enter>",
-        "a<enter>",
-        "w<enter>",
-        "<wait>",
-        "mkfs.ext4 -j -L nixos /dev/sda1<enter><wait5>",
-        "mount LABEL=nixos /mnt<enter><wait>",
-        "nixos-generate-config --root /mnt<enter><wait>",
-        "curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/configuration.nix | sed -e 's|nixbox|nixbox64|g' > /mnt/etc/nixos/configuration.nix<enter><wait>",
-        "nixos-install<enter><wait5>",
-        "vagrant<enter>",
-        "vagrant<enter>",
-        "reboot<enter>"
+        "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
+        "mkdir -m 0700 .ssh<enter>",
+        "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
+        "start sshd<enter>"
       ],
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux_64",
-      "http_directory": "http",
+      "http_directory": "scripts",
       "iso_url": "https://nixos.org/releases/nixos/14.12/nixos-14.12.496.5f7d374/nixos-minimal-14.12.496.5f7d374-x86_64-linux.iso",
       "iso_checksum": "933aab9ddd3d02ea669313fb31a69e631d038926b1af03624e2602a9f78389bf",
       "iso_checksum_type": "sha256",
-      "shutdown_command": "sudo shutdown -h now",
-      "ssh_password": "vagrant",
+      "shutdown_command": "shutdown -h now",
       "ssh_port": 22,
-      "ssh_username": "vagrant",
-      "ssh_wait_timeout": "5m",
+      "ssh_username": "root",
+      "ssh_key_path": "./scripts/install_rsa",
       "virtualbox_version_file": ".vbox_version"
     }
   ],
   "provisioners": [
     {
       "type": "shell",
-      "execute_command": "sudo sh '{{.Path}}'",
-      "script": "scripts/postinstall.sh"
+      "script": "scripts/install.sh"
     }
   ],
   "post-processors": [
@@ -49,4 +37,3 @@
     }
   ]
 }
-
