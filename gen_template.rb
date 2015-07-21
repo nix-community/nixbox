@@ -24,7 +24,6 @@ def builder(**opts)
       'curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>',
       'start sshd<enter>',
     ],
-    guest_additions_mode: 'disable',
     http_directory: 'scripts',
     iso_checksum_type: 'sha256',
     shutdown_command: 'shutdown -h now',
@@ -52,8 +51,21 @@ def gen_template(
         type: 'virtualbox-iso',
         iso_url: iso_url,
         iso_checksum: iso_sha256,
+        guest_additions_mode: 'disable',
         guest_os_type: virtualbox_guest_os,
         virtualbox_version_file: '.vbox_version',
+      ),
+      builder(
+        type: 'qemu',
+        iso_url: iso_url,
+        iso_checksum: iso_sha256,
+        qemu_binary: "qemu-system-#{arch.sub 'i686', 'i386'}"
+      ),
+      builder(
+        type: 'vmware-iso',
+        iso_url: iso_url,
+        iso_checksum: iso_sha256,
+        guest_os_type: 'other', # TODO, depend on arch
       )
     ],
     provisioners: [
@@ -68,6 +80,36 @@ def gen_template(
         artifact_type: 'vagrant.box',
         metadata: {
           provider: 'virtualbox',
+          version: get_version(full_version, 3),
+          description: <<-DESC
+A minimal NixOS build based on the #{File.basename iso_url}.
+
+See https://github.com/zimbatm/nixbox for project details.
+          DESC
+        }
+      },
+      {
+        type: 'atlas',
+        only: ['qemu'],
+        artifact: artifact,
+        artifact_type: 'vagrant.box',
+        metadata: {
+          provider: 'qemu',
+          version: get_version(full_version, 3),
+          description: <<-DESC
+A minimal NixOS build based on the #{File.basename iso_url}.
+
+See https://github.com/zimbatm/nixbox for project details.
+          DESC
+        }
+      },
+      {
+        type: 'atlas',
+        only: ['vmware-iso'],
+        artifact: artifact,
+        artifact_type: 'vagrant.box',
+        metadata: {
+          provider: 'vmware_player',
           version: get_version(full_version, 3),
           description: <<-DESC
 A minimal NixOS build based on the #{File.basename iso_url}.
