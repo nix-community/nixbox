@@ -73,47 +73,47 @@
     }
   ],
   "post-processors": [
-    {
-      "type": "vagrant"
-    },
-    {
-      "type": "atlas",
-      "only": [
-        "virtualbox-iso"
-      ],
-      "artifact": "zimbatm/nixos-14.12-x86_64",
-      "artifact_type": "vagrant.box",
-      "metadata": {
-        "provider": "virtualbox",
-        "version": "14.12.496",
-        "description": "A minimal NixOS build based on the nixos-minimal-14.12.496.5f7d374-x86_64-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
+    [
+      {
+        "type": "vagrant",
+        "keep_input_artifact": false
+      },
+      {
+        "type": "atlas",
+        "only": [
+          "virtualbox-iso"
+        ],
+        "artifact": "zimbatm/nixos-14.12-x86_64",
+        "artifact_type": "vagrant.box",
+        "metadata": {
+          "provider": "virtualbox",
+          "description": "A minimal NixOS build based on the nixos-minimal-14.12.496.5f7d374-x86_64-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
+        }
+      },
+      {
+        "type": "atlas",
+        "only": [
+          "qemu"
+        ],
+        "artifact": "zimbatm/nixos-14.12-x86_64",
+        "artifact_type": "vagrant.box",
+        "metadata": {
+          "provider": "qemu",
+          "description": "A minimal NixOS build based on the nixos-minimal-14.12.496.5f7d374-x86_64-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
+        }
+      },
+      {
+        "type": "atlas",
+        "only": [
+          "vmware-iso"
+        ],
+        "artifact": "zimbatm/nixos-14.12-x86_64",
+        "artifact_type": "vagrant.box",
+        "metadata": {
+          "provider": "vmware",
+          "description": "A minimal NixOS build based on the nixos-minimal-14.12.496.5f7d374-x86_64-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
+        }
       }
-    },
-    {
-      "type": "atlas",
-      "only": [
-        "qemu"
-      ],
-      "artifact": "zimbatm/nixos-14.12-x86_64",
-      "artifact_type": "vagrant.box",
-      "metadata": {
-        "provider": "qemu",
-        "version": "14.12.496",
-        "description": "A minimal NixOS build based on the nixos-minimal-14.12.496.5f7d374-x86_64-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
-      }
-    },
-    {
-      "type": "atlas",
-      "only": [
-        "vmware-iso"
-      ],
-      "artifact": "zimbatm/nixos-14.12-x86_64",
-      "artifact_type": "vagrant.box",
-      "metadata": {
-        "provider": "vmware_player",
-        "version": "14.12.496",
-        "description": "A minimal NixOS build based on the nixos-minimal-14.12.496.5f7d374-x86_64-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
-      }
-    }
+    ]
   ]
 }

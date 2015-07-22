@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 #
+# Little helper script that gives us the iso URL and SHA256
 #
 
 require 'net/http'

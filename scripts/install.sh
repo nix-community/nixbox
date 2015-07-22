@@ -22,7 +22,8 @@ mount LABEL=nixos /mnt
 
 # Setup system
 nixos-generate-config --root /mnt
-curl "$packer_http/configuration.nix" > /mnt/etc/nixos/configuration.nix
+curl -f "$packer_http/vagrant.nix" > /mnt/etc/nixos/vagrant.nix
+curl -f "$packer_http/configuration.nix" > /mnt/etc/nixos/configuration.nix
 
 ### Install ###
 nixos-install

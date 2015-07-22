@@ -71,8 +71,11 @@ def gen_template(
     provisioners: [
       { type: 'shell', script: './scripts/install.sh' }
     ],
-    'post-processors': [
-      { type: 'vagrant' },
+    'post-processors': [[
+      {
+        type: 'vagrant',
+        keep_input_artifact: false,
+      },
       {
         type: 'atlas',
         only: ['virtualbox-iso'],
@@ -80,7 +83,6 @@ def gen_template(
         artifact_type: 'vagrant.box',
         metadata: {
           provider: 'virtualbox',
-          version: get_version(full_version, 3),
           description: <<-DESC
 A minimal NixOS build based on the #{File.basename iso_url}.
 
@@ -95,7 +97,6 @@ See https://github.com/zimbatm/nixbox for project details.
         artifact_type: 'vagrant.box',
         metadata: {
           provider: 'qemu',
-          version: get_version(full_version, 3),
           description: <<-DESC
 A minimal NixOS build based on the #{File.basename iso_url}.
 
@@ -109,8 +110,7 @@ See https://github.com/zimbatm/nixbox for project details.
         artifact: artifact,
         artifact_type: 'vagrant.box',
         metadata: {
-          provider: 'vmware_player',
-          version: get_version(full_version, 3),
+          provider: 'vmware',
           description: <<-DESC
 A minimal NixOS build based on the #{File.basename iso_url}.
 
@@ -118,6 +118,6 @@ See https://github.com/zimbatm/nixbox for project details.
           DESC
         }
       }
-    ],
+    ]],
   )
 end
