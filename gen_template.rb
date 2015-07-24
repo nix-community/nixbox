@@ -56,12 +56,6 @@ def gen_template(
         virtualbox_version_file: '.vbox_version',
       ),
       builder(
-        type: 'qemu',
-        iso_url: iso_url,
-        iso_checksum: iso_sha256,
-        qemu_binary: "qemu-system-#{arch.sub 'i686', 'i386'}"
-      ),
-      builder(
         type: 'vmware-iso',
         iso_url: iso_url,
         iso_checksum: iso_sha256,
@@ -92,20 +86,6 @@ See https://github.com/zimbatm/nixbox for project details.
       },
       {
         type: 'atlas',
-        only: ['qemu'],
-        artifact: artifact,
-        artifact_type: 'vagrant.box',
-        metadata: {
-          provider: 'qemu',
-          description: <<-DESC
-A minimal NixOS build based on the #{File.basename iso_url}.
-
-See https://github.com/zimbatm/nixbox for project details.
-          DESC
-        }
-      },
-      {
-        type: 'atlas',
         only: ['vmware-iso'],
         artifact: artifact,
         artifact_type: 'vagrant.box',
@@ -119,5 +99,9 @@ See https://github.com/zimbatm/nixbox for project details.
         }
       }
     ]],
+    push: {
+      name: artifact,
+      vcs: true,
+    },
   )
 end

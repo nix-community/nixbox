@@ -39,27 +39,6 @@
       "ssh_key_path": "./scripts/install_rsa",
       "ssh_port": 22,
       "ssh_username": "root",
-      "type": "qemu",
-      "iso_url": "https://nixos.org/releases/nixos/14.12/nixos-14.12.496.5f7d374/nixos-minimal-14.12.496.5f7d374-x86_64-linux.iso",
-      "iso_checksum": "933aab9ddd3d02ea669313fb31a69e631d038926b1af03624e2602a9f78389bf",
-      "qemu_binary": "qemu-system-x86_64"
-    },
-    {
-      "boot_wait": "4s",
-      "boot_command": [
-        "<enter><wait5><wait5>",
-        "root<enter>",
-        "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
-        "mkdir -m 0700 .ssh<enter>",
-        "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
-        "start sshd<enter>"
-      ],
-      "http_directory": "scripts",
-      "iso_checksum_type": "sha256",
-      "shutdown_command": "shutdown -h now",
-      "ssh_key_path": "./scripts/install_rsa",
-      "ssh_port": 22,
-      "ssh_username": "root",
       "type": "vmware-iso",
       "iso_url": "https://nixos.org/releases/nixos/14.12/nixos-14.12.496.5f7d374/nixos-minimal-14.12.496.5f7d374-x86_64-linux.iso",
       "iso_checksum": "933aab9ddd3d02ea669313fb31a69e631d038926b1af03624e2602a9f78389bf",
@@ -93,18 +72,6 @@
       {
         "type": "atlas",
         "only": [
-          "qemu"
-        ],
-        "artifact": "zimbatm/nixos-14.12-x86_64",
-        "artifact_type": "vagrant.box",
-        "metadata": {
-          "provider": "qemu",
-          "description": "A minimal NixOS build based on the nixos-minimal-14.12.496.5f7d374-x86_64-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
-        }
-      },
-      {
-        "type": "atlas",
-        "only": [
           "vmware-iso"
         ],
         "artifact": "zimbatm/nixos-14.12-x86_64",
@@ -115,5 +82,9 @@
         }
       }
     ]
-  ]
+  ],
+  "push": {
+    "name": "zimbatm/nixos-14.12-x86_64",
+    "vcs": true
+  }
 }
