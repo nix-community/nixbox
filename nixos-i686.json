@@ -21,26 +21,6 @@
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux",
       "virtualbox_version_file": ".vbox_version"
-    },
-    {
-      "boot_wait": "30s",
-      "boot_command": [
-        "root<enter>",
-        "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
-        "mkdir -m 0700 .ssh<enter>",
-        "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
-        "start sshd<enter>"
-      ],
-      "http_directory": "scripts",
-      "iso_checksum_type": "sha256",
-      "shutdown_command": "shutdown -h now",
-      "ssh_key_path": "./scripts/install_rsa",
-      "ssh_port": 22,
-      "ssh_username": "root",
-      "type": "vmware-iso",
-      "iso_url": "https://nixos.org/releases/nixos/14.12/nixos-14.12.496.5f7d374/nixos-minimal-14.12.496.5f7d374-i686-linux.iso",
-      "iso_checksum": "637f5522570dc13ec8fee26ad1b0fb0eb3c1c85e19cd56032276367fb9ec1c69",
-      "guest_os_type": "other"
     }
   ],
   "provisioners": [
@@ -64,19 +44,6 @@
         "artifact_type": "vagrant.box",
         "metadata": {
           "provider": "virtualbox",
-          "version": "14.12.496",
-          "description": "A minimal NixOS build based on the nixos-minimal-14.12.496.5f7d374-i686-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
-        }
-      },
-      {
-        "type": "atlas",
-        "only": [
-          "vmware-iso"
-        ],
-        "artifact": "zimbatm/nixos-14.12-i686",
-        "artifact_type": "vagrant.box",
-        "metadata": {
-          "provider": "vmware",
           "version": "14.12.496",
           "description": "A minimal NixOS build based on the nixos-minimal-14.12.496.5f7d374-i686-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
         }

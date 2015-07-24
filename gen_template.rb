@@ -56,12 +56,6 @@ def gen_template(
         guest_os_type: virtualbox_guest_os,
         virtualbox_version_file: '.vbox_version',
       ),
-      builder(
-        type: 'vmware-iso',
-        iso_url: iso_url,
-        iso_checksum: iso_sha256,
-        guest_os_type: 'other', # TODO, depend on arch
-      )
     ],
     provisioners: [
       { type: 'shell', script: './scripts/install.sh' }
@@ -86,21 +80,6 @@ See https://github.com/zimbatm/nixbox for project details.
           DESC
         }
       },
-      {
-        type: 'atlas',
-        only: ['vmware-iso'],
-        artifact: artifact,
-        artifact_type: 'vagrant.box',
-        metadata: {
-          provider: 'vmware',
-          version: gen_version(full_version, 3),
-          description: <<-DESC
-A minimal NixOS build based on the #{File.basename iso_url}.
-
-See https://github.com/zimbatm/nixbox for project details.
-          DESC
-        }
-      }
     ]],
     push: {
       name: build,
