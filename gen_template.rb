@@ -36,13 +36,15 @@ def gen_template(
         arch:,
         iso_url:,
         iso_sha256:,
-        virtualbox_guest_os:
+        virtualbox_guest_os:,
+        user: 'zimbatm'
 )
   md = %r[/nixos-(\d+\.[^/]+)/].match(iso_url)
   raise "version not found in url" unless md
   full_version = md[1]
   ver = gen_version(full_version, 2)
-  artifact = "zimbatm/nixos-#{ver}-#{arch}"
+  artifact = "#{user}/nixos-#{ver}-#{arch}"
+  build = "#{user}/nixos-#{arch}"
 
   puts JSON.pretty_generate(
     builders: [
@@ -101,7 +103,7 @@ See https://github.com/zimbatm/nixbox for project details.
       }
     ]],
     push: {
-      name: artifact,
+      name: build,
       vcs: true,
     },
   )

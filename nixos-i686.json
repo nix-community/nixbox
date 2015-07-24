@@ -84,7 +84,7 @@
     ]
   ],
   "push": {
-    "name": "zimbatm/nixos-14.12-i686",
+    "name": "zimbatm/nixos-i686",
     "vcs": true
   }
 }
