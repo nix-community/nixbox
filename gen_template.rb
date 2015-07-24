@@ -9,7 +9,7 @@
 
 require 'json'
 
-def get_version(version, components=3)
+def gen_version(version, components=3)
   version.split('.')[0..components-1].join('.')
 end
 
@@ -41,7 +41,7 @@ def gen_template(
   md = %r[/nixos-(\d+\.[^/]+)/].match(iso_url)
   raise "version not found in url" unless md
   full_version = md[1]
-  ver = get_version(full_version, 2)
+  ver = gen_version(full_version, 2)
   artifact = "zimbatm/nixos-#{ver}-#{arch}"
 
   puts JSON.pretty_generate(
@@ -76,6 +76,7 @@ def gen_template(
         artifact_type: 'vagrant.box',
         metadata: {
           provider: 'virtualbox',
+          version: gen_version(full_version, 3),
           description: <<-DESC
 A minimal NixOS build based on the #{File.basename iso_url}.
 
@@ -90,6 +91,7 @@ See https://github.com/zimbatm/nixbox for project details.
         artifact_type: 'vagrant.box',
         metadata: {
           provider: 'vmware',
+          version: gen_version(full_version, 3),
           description: <<-DESC
 A minimal NixOS build based on the #{File.basename iso_url}.
 
