@@ -31,6 +31,9 @@
   # Enable DBus
   services.dbus.enable    = true;
 
+  # Enable guest additions.
+  services.virtualboxGuest.enable = true;
+
   # Creates a "vagrant" users with password-less sudo access
   users = {
     extraGroups = [ { name = "vagrant"; } { name = "vboxsf"; } ];
