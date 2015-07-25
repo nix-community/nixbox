@@ -2,21 +2,21 @@ NixOS boxes for Vagrant
 =======================
 
 [NixOS](http://nixos.org) is a linux distribution based on a purely functional
-package manager. This project builds .box images that can be used by
-[vagrant](http://vagrantup.com), the VM manager.
+package manager. This project builds [vagrant](http://vagrantup.com) .box
+images.
 
 Status
 ------
 
 stable
 
-Install
--------
+Usage
+-----
 
 ```
-vagrant init zimbatm/nixbox32
+vagrant init zimbatm/nixos-14.12-i686
 # or
-vagrant init zimbatm/nixbox64
+vagrant init zimbatm/nixos-14.12-x86_64
 ```
 
 Also have a look at the nixos vagrant plugin:
@@ -31,17 +31,17 @@ First install [packer](http://packer.io) and
 Then:
 
 ```
-packer build nixbox32-template.json
+packer build nixos-i686.json
 # or
-packer build nixbox64-template.json
+packer build nixos-x86_64.json
 ```
 
 The .box image is now ready to go and you can use it in vagrant:
 
 ```
-vagrant box add nixbox32 nixbox32-virtualbox.box
+vagrant box add nixbox32 packer_virtualbox-iso_virtualbox.box
 # or
-vagrant box add nixbox64 nixbox64-virtualbox.box
+vagrant box add nixbox64 packer_virtualbox-iso_virtualbox.box
 ```
 
 License
