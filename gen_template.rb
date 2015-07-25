@@ -72,7 +72,6 @@ def gen_template(
         artifact_type: 'vagrant.box',
         metadata: {
           provider: 'virtualbox',
-          version: gen_version(full_version, 3),
           description: <<-DESC
 A minimal NixOS build based on the #{File.basename iso_url}.
 

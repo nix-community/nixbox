@@ -44,7 +44,6 @@
         "artifact_type": "vagrant.box",
         "metadata": {
           "provider": "virtualbox",
-          "version": "14.12.496",
           "description": "A minimal NixOS build based on the nixos-minimal-14.12.496.5f7d374-x86_64-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
         }
       }
