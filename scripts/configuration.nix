@@ -16,8 +16,6 @@
   # your boot until you press *. 
   boot.initrd.checkJournalingFS = false;
 
-  networking.hostName = "nixbox";
-
   # Vagrant cannot yet handle udev's new predictable interface names.
   # Use the old ethX naming system for the moment.
   # http://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/
