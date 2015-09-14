@@ -1,0 +1,40 @@
+language: ruby
+
+rvm:
+  - 2.2
+
+env:
+
+  matrix:
+    - TEMPLATE_NAME=nixos-i686
+    - TEMPLATE_NAME=nixos-x86_64
+
+  global:
+    - PACKER_DOWNLOAD=https://dl.bintray.com/mitchellh/packer
+    - ATLAS_DOWNLOAD=https://github.com/hashicorp/atlas-upload-cli/releases/download
+    - ATLAS_TOKEN=?? # use secure:
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install virtualbox
+
+install:
+  - wget --no-check-certificate --output-document packer.zip $PACKER_DOWNLOAD/packer_0.8.2_linux_amd64.zip
+  - unzip -d packer packer.zip
+  - export PATH=$PATH:$PWD/packer
+
+script:
+  - packer build ${TEMPLATE_NAME}.json
+
+before_deploy:
+  - wget --no-check-certificate --output-document atlas-upload-cli.tar.gz $ATLAS_DOWNLOAD/v0.2.0/atlas-upload-cli_0.2.0_linux_386.tar.gz
+  - tar xzf atlas-upload-cli.tar.gz -C atlas-upload-cli
+  - export PATH=$PATH:/$PWD/atlas-upload-cli
+
+deploy:
+  provider: script
+  script: atlas-upload -include=${TEMPLATE_NAME}.box zimbatm/${TEMPLATE_NAME} .
+  skip_cleanup: true
+  on:
+    tags: true
+
