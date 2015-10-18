@@ -24,6 +24,9 @@
   # Enable DBus
   services.dbus.enable    = true;
 
+  # Replace nptd by timesyncd
+  services.timesyncd.enable = true;
+
   # Enable guest additions.
   virtualisation.virtualbox.guest.enable = true;
 
