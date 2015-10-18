@@ -19,8 +19,8 @@ vagrant init zimbatm/nixos-15.09-i686
 vagrant init zimbatm/nixos-15.09-x86_64
 ```
 
-Also have a look at the nixos vagrant plugin:
-https://github.com/oxdi/vagrant-nixos
+Also have a look at the accompanying nixos vagrant plugin:
+https://github.com/zimbatm/vagrant-nixos-plugin
 
 Building the images
 -------------------
