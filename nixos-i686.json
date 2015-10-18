@@ -3,7 +3,6 @@
     {
       "boot_wait": "30s",
       "boot_command": [
-        "root<enter>",
         "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
         "mkdir -m 0700 .ssh<enter>",
         "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
@@ -16,8 +15,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "virtualbox-iso",
-      "iso_url": "https://nixos.org/releases/nixos/14.12/nixos-14.12.496.5f7d374/nixos-minimal-14.12.496.5f7d374-i686-linux.iso",
-      "iso_checksum": "637f5522570dc13ec8fee26ad1b0fb0eb3c1c85e19cd56032276367fb9ec1c69",
+      "iso_url": "https://nixos.org/releases/nixos/15.09/nixos-15.09.597.71e29b4/nixos-minimal-15.09.597.71e29b4-i686-linux.iso",
+      "iso_checksum": "659736e766149a49c6b8c3f24c47f168527e88f1aac0754bc5f4ae73ef7f0b0b",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux",
       "virtualbox_version_file": ".vbox_version"
@@ -40,11 +39,11 @@
         "only": [
           "virtualbox-iso"
         ],
-        "artifact": "zimbatm/nixos-14.12-i686",
+        "artifact": "zimbatm/nixos-15.09-i686",
         "artifact_type": "vagrant.box",
         "metadata": {
           "provider": "virtualbox",
-          "description": "A minimal NixOS build based on the nixos-minimal-14.12.496.5f7d374-i686-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
+          "description": "A minimal NixOS build based on the nixos-minimal-15.09.597.71e29b4-i686-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
         }
       }
     ]

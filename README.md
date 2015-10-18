@@ -14,9 +14,9 @@ Usage
 -----
 
 ```
-vagrant init zimbatm/nixos-14.12-i686
+vagrant init zimbatm/nixos-15.09-i686
 # or
-vagrant init zimbatm/nixos-14.12-x86_64
+vagrant init zimbatm/nixos-15.09-x86_64
 ```
 
 Also have a look at the nixos vagrant plugin:
@@ -47,5 +47,5 @@ vagrant box add nixbox64 packer_virtualbox-iso_virtualbox.box
 License
 -------
 
-Copyright 2014 under the MIT
+Copyright 2015 under the MIT
 

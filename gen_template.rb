@@ -17,7 +17,6 @@ def builder(**opts)
   {
     boot_wait: '30s',
     boot_command: [
-      'root<enter>',
       'echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>',
       'mkdir -m 0700 .ssh<enter>',
       'curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>',

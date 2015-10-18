@@ -25,15 +25,14 @@
   services.dbus.enable    = true;
 
   # Enable guest additions.
-  services.virtualboxGuest.enable = true;
+  virtualisation.virtualbox.guest.enable = true;
 
   # Packages for Vagrant
   environment.systemPackages = with pkgs; [
-    biosdevname
     findutils
     iputils
-    net-tools
-    netcat-gnu
+    nettools
+    netcat
     nfs-utils
     rsync
   ];
