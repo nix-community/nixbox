@@ -19,7 +19,14 @@
       "iso_checksum": "659736e766149a49c6b8c3f24c47f168527e88f1aac0754bc5f4ae73ef7f0b0b",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux",
-      "virtualbox_version_file": ".vbox_version"
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "1024"
+        ]
+      ]
     }
   ],
   "provisioners": [

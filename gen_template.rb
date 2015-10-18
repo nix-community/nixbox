@@ -53,7 +53,9 @@ def gen_template(
         iso_checksum: iso_sha256,
         guest_additions_mode: 'disable',
         guest_os_type: virtualbox_guest_os,
-        virtualbox_version_file: '.vbox_version',
+        vboxmanage: [
+          ['modifyvm', '{{.Name}}', '--memory', '1024'],
+        ],
       ),
     ],
     provisioners: [
