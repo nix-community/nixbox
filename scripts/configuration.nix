@@ -16,11 +16,6 @@
   # your boot until you press *. 
   boot.initrd.checkJournalingFS = false;
 
-  # Vagrant cannot yet handle udev's new predictable interface names.
-  # Use the old ethX naming system for the moment.
-  # http://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/
-  networking.usePredictableInterfaceNames = false;
-
   # Services to enable:
 
   # Enable the OpenSSH daemon.
@@ -31,6 +26,17 @@
 
   # Enable guest additions.
   services.virtualboxGuest.enable = true;
+
+  # Packages for Vagrant
+  environment.systemPackages = with pkgs; [
+    biosdevname
+    findutils
+    iputils
+    net-tools
+    netcat-gnu
+    nfs-utils
+    rsync
+  ];
 
   # Creates a "vagrant" users with password-less sudo access
   users = {
