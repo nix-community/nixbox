@@ -17,7 +17,10 @@
   boot.initrd.checkJournalingFS = false;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/nixos-14.12
   # Vagrant cannot yet handle udev's new predictable interface names.
   # Use the old ethX naming system for the moment.
   # http://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/
