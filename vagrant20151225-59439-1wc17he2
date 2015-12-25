@@ -1,0 +1,4 @@
+gem "vagrant", "= 1.8.0"
+group :plugins do
+gem "vagrant-share", nil, {}
+end
