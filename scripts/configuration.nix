@@ -18,7 +18,10 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/nixos-14.12
 =======
 >>>>>>> origin/nixos-14.12
   # Vagrant cannot yet handle udev's new predictable interface names.
