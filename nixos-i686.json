@@ -15,8 +15,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "virtualbox-iso",
-      "iso_url": "https://nixos.org/releases/nixos/15.09/nixos-15.09.597.71e29b4/nixos-minimal-15.09.597.71e29b4-i686-linux.iso",
-      "iso_checksum": "659736e766149a49c6b8c3f24c47f168527e88f1aac0754bc5f4ae73ef7f0b0b",
+      "iso_url": "https://nixos.org/releases/nixos/15.09/nixos-15.09.1076.9220f03/nixos-minimal-15.09.1076.9220f03-i686-linux.iso",
+      "iso_checksum": "4ffa1cbaa006bd6d804ecbf3da3c613fbf57602e9c383e5d985f2fbd6ff265f5",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux",
       "vboxmanage": [
@@ -50,7 +50,7 @@
         "artifact_type": "vagrant.box",
         "metadata": {
           "provider": "virtualbox",
-          "description": "A minimal NixOS build based on the nixos-minimal-15.09.597.71e29b4-i686-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
+          "description": "A minimal NixOS build based on the nixos-minimal-15.09.1076.9220f03-i686-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
         }
       }
     ]
