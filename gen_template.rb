@@ -25,7 +25,7 @@ def builder(**opts)
     http_directory: 'scripts',
     iso_checksum_type: 'sha256',
     shutdown_command: 'shutdown -h now',
-    ssh_key_path: './scripts/install_rsa',
+    ssh_private_key_file: './scripts/install_rsa',
     ssh_port: 22,
     ssh_username: 'root',
   }.merge(opts)
