@@ -3,7 +3,7 @@ require './gen_template.rb'
 
 gen_template(
   arch: "i686",
-  iso_url: "https://nixos.org/releases/nixos/15.09/nixos-15.09.1076.9220f03/nixos-minimal-15.09.1076.9220f03-i686-linux.iso",
-  iso_sha256: "4ffa1cbaa006bd6d804ecbf3da3c613fbf57602e9c383e5d985f2fbd6ff265f5",
+  iso_url: "https://nixos.org/releases/nixos/16.03/nixos-16.03.1277.c84026f/nixos-minimal-16.03.1277.c84026f-i686-linux.iso",
+  iso_sha256: "28e3b6bb814fbe26679cbf16bb538b86eab5a6c139670fba39254c4388643ac3",
   virtualbox_guest_os: "Linux",
 )
