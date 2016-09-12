@@ -34,6 +34,7 @@
   environment.systemPackages = with pkgs; [
     findutils
     iputils
+    jq
     nettools
     netcat
     nfs-utils
