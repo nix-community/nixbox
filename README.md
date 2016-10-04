@@ -14,9 +14,9 @@ Usage
 -----
 
 ```
-vagrant init zimbatm/nixos-16.03-i686
+vagrant init zimbatm/nixos-16.09-i686
 # or
-vagrant init zimbatm/nixos-16.03-x86_64
+vagrant init zimbatm/nixos-16.09-x86_64
 ```
 
 Also have a look at the accompanying nixos vagrant plugin:

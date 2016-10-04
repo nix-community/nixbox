@@ -6,7 +6,7 @@
         "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
         "mkdir -m 0700 .ssh<enter>",
         "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
-        "start sshd<enter>"
+        "systemctl start sshd<enter>"
       ],
       "http_directory": "scripts",
       "iso_checksum_type": "sha256",
@@ -15,8 +15,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "virtualbox-iso",
-      "iso_url": "https://nixos.org/releases/nixos/16.03/nixos-16.03.1271.546618c/nixos-minimal-16.03.1271.546618c-x86_64-linux.iso",
-      "iso_checksum": "81c91427d7fd384097a8a811715f69379a81c3da02c7db39ec85f4a11f2d42f0",
+      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/16.09/nixos-16.09.680.4e14fd5/nixos-minimal-16.09.680.4e14fd5-x86_64-linux.iso",
+      "iso_checksum": "8700fd1861e83dba0c3c2cb348099d2499b2c52844d1771f1aacbf7458990bc8",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux_64",
       "vboxmanage": [
@@ -46,11 +46,11 @@
         "only": [
           "virtualbox-iso"
         ],
-        "artifact": "zimbatm/nixos-16.03-x86_64",
+        "artifact": "zimbatm/nixos-16.09-x86_64",
         "artifact_type": "vagrant.box",
         "metadata": {
           "provider": "virtualbox",
-          "description": "A minimal NixOS build based on the nixos-minimal-16.03.1271.546618c-x86_64-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
+          "description": "A minimal NixOS build based on the nixos-minimal-16.09.680.4e14fd5-x86_64-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
         }
       }
     ]
