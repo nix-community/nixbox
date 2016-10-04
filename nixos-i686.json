@@ -6,7 +6,7 @@
         "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
         "mkdir -m 0700 .ssh<enter>",
         "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
-        "start sshd<enter>"
+        "systemctl start sshd<enter>"
       ],
       "http_directory": "scripts",
       "iso_checksum_type": "sha256",
@@ -15,8 +15,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "virtualbox-iso",
-      "iso_url": "https://nixos.org/releases/nixos/16.03/nixos-16.03.1277.c84026f/nixos-minimal-16.03.1277.c84026f-i686-linux.iso",
-      "iso_checksum": "28e3b6bb814fbe26679cbf16bb538b86eab5a6c139670fba39254c4388643ac3",
+      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/16.09/nixos-16.09.671.c89c1ba/nixos-minimal-16.09.671.c89c1ba-i686-linux.iso",
+      "iso_checksum": "f56f825b163b79b91031d342dae9b46234a08d3029d7eb8adb3f35d6d3ddc65d",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux",
       "vboxmanage": [
