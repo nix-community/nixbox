@@ -44,6 +44,11 @@ vagrant box add nixbox32 packer_virtualbox-iso_virtualbox.box
 vagrant box add nixbox64 packer_virtualbox-iso_virtualbox.box
 ```
 
+Updating the ISO urls
+---------------------
+
+To update the ISO urls to the latest release run: `make update_iso update_template`
+
 License
 -------
 
