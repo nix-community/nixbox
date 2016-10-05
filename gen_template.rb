@@ -1,4 +1,4 @@
-#!ruby
+#!/usr/bin/env ruby
 #
 # Packer supports user variables but they are a bit awkward to use. It's
 # easier to build the config programatically.
@@ -35,7 +35,6 @@ def gen_template(
         arch:,
         iso_url:,
         iso_sha256:,
-        virtualbox_guest_os:,
         user: 'nixos'
 )
   md = %r[/nixos-(\d+\.[^/]+)/].match(iso_url)
@@ -44,6 +43,12 @@ def gen_template(
   ver = gen_version(full_version, 2)
   artifact = "#{user}/nixos-#{ver}-#{arch}"
   build = "#{user}/nixos-#{arch}"
+  guest_os_type =
+    case arch
+    when 'x86_64' then 'Linux_64'
+    when 'i686' then 'Linux'
+    else throw "Unknown guest os type for arch #{arch}"
+    end
 
   puts JSON.pretty_generate(
     builders: [
@@ -52,7 +57,7 @@ def gen_template(
         iso_url: iso_url,
         iso_checksum: iso_sha256,
         guest_additions_mode: 'disable',
-        guest_os_type: virtualbox_guest_os,
+        guest_os_type: guest_os_type,
         vboxmanage: [
           ['modifyvm', '{{.Name}}', '--memory', '1024'],
         ],
@@ -87,3 +92,9 @@ See https://github.com/zimbatm/nixbox for project details.
     },
   )
 end
+
+# main
+arch = ARGV[0] || fail('usage: gen_template.rb <ARCH>')
+isos = JSON.load(open('iso_urls.json'), nil, symbolize_names: true)
+config = isos[arch.to_sym] || fail("iso not found for arch #{arch}")
+gen_template(arch: arch, **config)

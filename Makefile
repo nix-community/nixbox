@@ -1,10 +1,16 @@
 
-all: nixos-i686.json nixos-x86_64.json
+all: update_template
 
-nixos-i686.json: nixos-i686.rb gen_template.rb
-	./$< > $@
+# Fetches the latest iso urls
+update_iso:
+	./update_iso_urls.rb
 
-nixos-x86_64.json: nixos-x86_64.rb gen_template.rb
-	./$< > $@
+update_template: nixos-i686.json nixos-x86_64.json
 
-.PHONY: all
+nixos-i686.json: gen_template.rb iso_urls.json
+	./gen_template.rb i686 > $@
+
+nixos-x86_64.json: gen_template.rb iso_urls.json
+	./gen_template.rb x86_64 > $@
+
+.PHONY: all update_iso update_template
