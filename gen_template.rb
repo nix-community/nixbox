@@ -36,7 +36,7 @@ def gen_template(
         iso_url:,
         iso_sha256:,
         virtualbox_guest_os:,
-        user: 'zimbatm'
+        user: 'nixos'
 )
   md = %r[/nixos-(\d+\.[^/]+)/].match(iso_url)
   raise "version not found in url" unless md
