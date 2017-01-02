@@ -3,7 +3,7 @@ all: update_template
 
 # Fetches the latest iso urls
 update_iso:
-	./update_iso_urls.rb
+	./iso_urls_update.rb
 
 update_template: nixos-i686.json nixos-x86_64.json
 
