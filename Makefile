@@ -1,5 +1,5 @@
 
-all: update_template
+all: update_iso update_template
 
 # Fetches the latest iso urls
 update_iso:
