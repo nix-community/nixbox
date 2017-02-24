@@ -70,31 +70,13 @@ def gen_template(
       {
         type: 'vagrant',
         keep_input_artifact: false,
-      },
-      {
-        type: 'atlas',
-        only: ['virtualbox-iso'],
-        artifact: artifact,
-        artifact_type: 'vagrant.box',
-        metadata: {
-          provider: 'virtualbox',
-          description: <<-DESC
-A minimal NixOS build based on the #{File.basename iso_url}.
-
-See https://github.com/zimbatm/nixbox for project details.
-          DESC
-        }
-      },
-    ]],
-    push: {
-      name: build,
-      vcs: true,
-    },
+      }
+    ]]
   )
 end
 
 # main
 arch = ARGV[0] || fail('usage: gen_template.rb <ARCH>')
-isos = JSON.load(open('iso_urls.json'), nil, symbolize_names: true)
+isos = JSON.load(open('iso_urls.json'), nil, symbolize_names: true, create_additions: false)
 config = isos[arch.to_sym] || fail("iso not found for arch #{arch}")
 gen_template(arch: arch, **config)
