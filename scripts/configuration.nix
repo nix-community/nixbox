@@ -33,6 +33,7 @@
   # Packages for Vagrant
   environment.systemPackages = with pkgs; [
     findutils
+    gnumake
     iputils
     jq
     nettools
