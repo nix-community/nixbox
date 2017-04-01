@@ -1,10 +1,10 @@
 {
   "x86_64": {
-    "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/16.09/nixos-16.09.1389.d7a3160/nixos-minimal-16.09.1389.d7a3160-x86_64-linux.iso",
-    "iso_sha256": "b42067682d59b1e25e04564027331d03354d4f70b53f4e5fad11333f1f978d5d"
+    "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/17.03/nixos-17.03.849.1849e69/nixos-minimal-17.03.849.1849e69-x86_64-linux.iso",
+    "iso_sha256": "86667375b8bc5e04f7f346889be9dc1d6c01f4cbba956cc423ab264a08c8e20f"
   },
   "i686": {
-    "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/16.09/nixos-16.09.1389.d7a3160/nixos-minimal-16.09.1389.d7a3160-i686-linux.iso",
-    "iso_sha256": "f7257b3c8a8b69190d589b4760271f4980e15c8b5587695f86abcb859491bc36"
+    "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/17.03/nixos-17.03.849.1849e69/nixos-minimal-17.03.849.1849e69-i686-linux.iso",
+    "iso_sha256": "2f8b38483c09f20070efa39b6310b02704d9d4f78810d652e9a86a32314ca243"
   }
 }
