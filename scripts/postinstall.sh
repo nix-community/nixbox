@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Make sure we are totally up to date
-nix-channel --add http://nixos.org/channels/nixos-17.03 nixos
+nix-channel --add http://nixos.org/channels/nixos-17.09 nixos
 nix-channel --update
 nixos-rebuild switch --upgrade
 

@@ -15,8 +15,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "virtualbox-iso",
-      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/17.03/nixos-17.03.849.1849e69/nixos-minimal-17.03.849.1849e69-x86_64-linux.iso",
-      "iso_checksum": "86667375b8bc5e04f7f346889be9dc1d6c01f4cbba956cc423ab264a08c8e20f",
+      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/17.09/nixos-17.09.1462.07ca7b64d2/nixos-minimal-17.09.1462.07ca7b64d2-x86_64-linux.iso",
+      "iso_checksum": "a6477501493cfc4ccdbe2e489c9cd96076d53f695dc8ba335b90f701738c9bf7",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux_64",
       "vboxmanage": [
