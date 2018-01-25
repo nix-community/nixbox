@@ -15,8 +15,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "virtualbox-iso",
-      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/17.03/nixos-17.03.849.1849e69/nixos-minimal-17.03.849.1849e69-i686-linux.iso",
-      "iso_checksum": "2f8b38483c09f20070efa39b6310b02704d9d4f78810d652e9a86a32314ca243",
+      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/17.09/nixos-17.09.2853.b222a0713f4/nixos-minimal-17.09.2853.b222a0713f4-i686-linux.iso",
+      "iso_checksum": "c9bfd2b3bf18ec317ac94c32ea9c510f348b15e2e2d8c1474ef98b9fa5f08150",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux",
       "vboxmanage": [
@@ -46,11 +46,11 @@
         "only": [
           "virtualbox-iso"
         ],
-        "artifact": "nixos/nixos-17.03-i686",
+        "artifact": "nixos/nixos-17.09-i686",
         "artifact_type": "vagrant.box",
         "metadata": {
           "provider": "virtualbox",
-          "description": "A minimal NixOS build based on the nixos-minimal-17.03.849.1849e69-i686-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
+          "description": "A minimal NixOS build based on the nixos-minimal-17.09.2853.b222a0713f4-i686-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
         }
       }
     ]
