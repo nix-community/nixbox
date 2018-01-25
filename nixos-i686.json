@@ -42,21 +42,13 @@
         "keep_input_artifact": false
       },
       {
-        "type": "atlas",
+        "type": "vagrant-cloud",
         "only": [
           "virtualbox-iso"
         ],
-        "artifact": "nixos/nixos-17.09-i686",
-        "artifact_type": "vagrant.box",
-        "metadata": {
-          "provider": "virtualbox",
-          "description": "A minimal NixOS build based on the nixos-minimal-17.09.2853.b222a0713f4-i686-linux.iso.\n\nSee https://github.com/zimbatm/nixbox for project details.\n"
-        }
+        "box_tag": "nixos/nixos-17.09-i686",
+        "version": "17.09.2853"
       }
     ]
-  ],
-  "push": {
-    "name": "nixos/nixos-i686",
-    "vcs": true
-  }
+  ]
 }
