@@ -95,6 +95,6 @@ end
 
 # main
 arch = ARGV[0] || fail('usage: gen_template.rb <ARCH>')
-isos = JSON.load(open('iso_urls.json'), nil, symbolize_names: true)
+isos = JSON.load(open('iso_urls.json'), nil, symbolize_names: true, create_additions: false)
 config = isos[arch.to_sym] || fail("iso not found for arch #{arch}")
 gen_template(arch: arch, **config)
