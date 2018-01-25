@@ -15,7 +15,7 @@ end
 
 def builder(**opts)
   {
-    boot_wait: '30s',
+    boot_wait: '40s',
     boot_command: [
       'echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>',
       'mkdir -m 0700 .ssh<enter>',
