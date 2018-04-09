@@ -20,7 +20,7 @@ vagrant init nixos/nixos-18.09-x86_64
 ```
 
 Also have a look at the accompanying nixos vagrant plugin:
-https://github.com/zimbatm/vagrant-nixos-plugin
+https://github.com/nix-community/vagrant-nixos-plugin
 
 Building the images
 -------------------
