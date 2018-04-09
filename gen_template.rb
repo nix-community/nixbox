@@ -41,7 +41,7 @@ def gen_template(
   raise "version not found in url" unless md
   full_version = md[1]
   ver = gen_version(full_version, 2)
-  version = gen_version(full_version, 3)
+  version = gen_version(full_version, 3) + "-1"
   artifact = "#{user}/nixos-#{ver}-#{arch}"
   build = "#{user}/nixos-#{arch}"
   guest_os_type =

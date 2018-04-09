@@ -47,7 +47,7 @@
           "virtualbox-iso"
         ],
         "box_tag": "nixos/nixos-18.03-i686",
-        "version": "18.03.131807"
+        "version": "18.03.131807-1"
       }
     ]
   ]
