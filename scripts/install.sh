@@ -31,4 +31,4 @@ curl -f "$packer_http/configuration.nix" > /mnt/etc/nixos/configuration.nix
 nixos-install
 
 ### Cleanup ###
-curl "$packer_http/postinstall.sh" | nixos-install --chroot
+curl "$packer_http/postinstall.sh" | nixos-install
