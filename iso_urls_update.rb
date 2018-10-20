@@ -8,10 +8,6 @@ require 'open-uri'
 require 'uri'
 require 'json'
 
-def get(uri)
-  Net::HTTP.get_response(uri)
-end
-
 isos = {}
 
 ISO_RE = /"(https:\/\/[^"]+-([^-]+)-linux.iso)".*Minimal.*"(https:\/\/[^"]+.iso.sha256)"/i
