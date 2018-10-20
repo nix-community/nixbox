@@ -18,7 +18,7 @@ ISO_RE = /"(https:\/\/[^"]+-([^-]+)-linux.iso)".*Minimal.*"(https:\/\/[^"]+.iso.
 open("https://nixos.org/nixos/download.html").each_line.grep(ISO_RE) do
   isos[$2] = {
     iso_url: $1,
-    iso_sha256: open($3).read.strip,
+    iso_sha256: open($3).read.strip.split.first,
   }
 end
 
