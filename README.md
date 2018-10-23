@@ -26,17 +26,31 @@ Building the images
 -------------------
 
 First install [packer](http://packer.io) and
-[virtualbox](https://www.virtualbox.org/)
+[virtualbox](https://www.virtualbox.org/).
 
-Then:
+Two packer builders are currently supported:
+- Virtualbox
+- qemu / libvirt
 
+To build Virtualbox vagrant images:
 ```
-packer build nixos-i686.json
+packer build --only=virtualbox-iso nixos-i686.json
 # or
-packer build nixos-x86_64.json
+packer build --only=virtualbox-iso nixos-x86_64.json
 ```
 
-The .box image is now ready to go and you can use it in vagrant:
+-or-
+
+To build qemu / libvirt vagrant images:
+```
+packer build --only=qemu nixos-i686.json
+# or
+packer build --only=qemu nixos-x86_64.json
+```
+
+---
+
+The vagrant .box image is now ready to go and you can use it in vagrant:
 
 ```
 vagrant box add nixbox32 packer_virtualbox-iso_virtualbox.box

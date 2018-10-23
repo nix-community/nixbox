@@ -1,3 +1,4 @@
+BUILDERS ?= "virtualbox-iso"
 
 all: update build
 
@@ -18,9 +19,9 @@ nixos-x86_64.json: gen_template.rb iso_urls.json
 build: build-i686 build-x86_64
 
 build-i686: nixos-i686.json
-	packer build $<
+	packer build --only=${BUILDERS} $<
 
 build-x86_64: nixos-x86_64.json
-	packer build $<
+	packer build --only=${BUILDERS} $<
 
 .PHONY: all update update_iso update_template build-i686 build-x86_64

@@ -15,8 +15,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "virtualbox-iso",
-      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.03/nixos-18.03.131807.489a14add9a/nixos-minimal-18.03.131807.489a14add9a-x86_64-linux.iso",
-      "iso_checksum": "d4fba36b1c5698090954aaeef8ac2e3fec3c06ddd6aa99f636ebe7a580cec482",
+      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.09/nixos-18.09.932.09195057114/nixos-minimal-18.09.932.09195057114-x86_64-linux.iso",
+      "iso_checksum": "8da4c81d611f34c33a69f21aa353f08f3504ffb70f1c78417fdb7c5ed7a88eae",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux_64",
       "vboxmanage": [
@@ -24,6 +24,31 @@
           "modifyvm",
           "{{.Name}}",
           "--memory",
+          "1024"
+        ]
+      ]
+    },
+    {
+      "boot_wait": "40s",
+      "boot_command": [
+        "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
+        "mkdir -m 0700 .ssh<enter>",
+        "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
+        "systemctl start sshd<enter>"
+      ],
+      "http_directory": "scripts",
+      "iso_checksum_type": "sha256",
+      "shutdown_command": "shutdown -h now",
+      "ssh_private_key_file": "./scripts/install_rsa",
+      "ssh_port": 22,
+      "ssh_username": "root",
+      "type": "qemu",
+      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.09/nixos-18.09.932.09195057114/nixos-minimal-18.09.932.09195057114-x86_64-linux.iso",
+      "iso_checksum": "8da4c81d611f34c33a69f21aa353f08f3504ffb70f1c78417fdb7c5ed7a88eae",
+      "disk_interface": "virtio-scsi",
+      "qemuargs": [
+        [
+          "-m",
           "1024"
         ]
       ]
@@ -46,8 +71,8 @@
         "only": [
           "virtualbox-iso"
         ],
-        "box_tag": "nixos/nixos-18.03-x86_64",
-        "version": "18.03.131807-1"
+        "box_tag": "nixos/nixos-18.09-x86_64",
+        "version": "18.09.932-1"
       }
     ]
   ]

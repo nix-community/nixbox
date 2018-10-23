@@ -63,6 +63,15 @@ def gen_template(
           ['modifyvm', '{{.Name}}', '--memory', '1024'],
         ],
       ),
+      builder(
+        type: 'qemu',
+        iso_url: iso_url,
+        iso_checksum: iso_sha256,
+        disk_interface: 'virtio-scsi',
+        qemuargs: [
+          ['-m', '1024'],
+        ],
+      ),
     ],
     provisioners: [
       { type: 'shell', script: './scripts/install.sh' }
