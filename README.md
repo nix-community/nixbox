@@ -14,9 +14,9 @@ Usage
 -----
 
 ```
-vagrant init nixos/nixos-18.03-i686
+vagrant init nixos/nixos-18.09-i686
 # or
-vagrant init nixos/nixos-18.03-x86_64
+vagrant init nixos/nixos-18.09-x86_64
 ```
 
 Also have a look at the accompanying nixos vagrant plugin:
