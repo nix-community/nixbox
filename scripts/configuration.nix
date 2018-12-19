@@ -6,6 +6,7 @@
       ./hardware-configuration.nix
       ./hardware-builder.nix
       ./vagrant.nix
+      ./custom-configuration.nix
     ];
 
   # Use the GRUB 2 boot loader.
