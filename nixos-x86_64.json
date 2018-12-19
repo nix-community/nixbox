@@ -52,6 +52,36 @@
           "1024"
         ]
       ]
+    },
+    {
+      "boot_wait": "40s",
+      "boot_command": [
+        "echo http://{{.HTTPIP}}:{{.HTTPPort}} > .packer_http<enter>",
+        "mkdir -m 0700 .ssh<enter>",
+        "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter><wait>",
+        "sed -i '5ivirtualisation.hypervGuest.enable = true;' /etc/nixos/configuration.nix<enter><wait>",
+        "sed -i '6idocumentation.man.enable = false; documentation.enable = false;' /etc/nixos/configuration.nix<enter><wait>",
+        "sed -i '7iservices.nixosManual.enable = false;' /etc/nixos/configuration.nix<enter><wait>",
+        "nixos-rebuild switch<enter><wait>",
+        "systemctl start sshd<enter>"
+      ],
+      "http_directory": "scripts",
+      "switch_name": "Devbox",
+      "iso_checksum_type": "sha256",
+      "shutdown_command": "shutdown -h now",
+      "ssh_private_key_file": "./scripts/install_rsa",
+      "ssh_port": 22,
+      "ssh_timeout": "600s",
+      "ssh_username": "root",
+      "type": "hyperv-iso",
+      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.09/nixos-18.09.1534.d45a0d7a4f5/nixos-minimal-18.09.1534.d45a0d7a4f5-x86_64-linux.iso",
+      "iso_checksum": "8da4c81d611f34c33a69f21aa353f08f3504ffb70f1c78417fdb7c5ed7a88eae",
+      "disk_size": 62000,
+      "cpu": 3,
+      "ram_size": 2048,
+      "enable_mac_spoofing": true,
+      "guest_additions_mode": "disable",
+      "enable_virtualization_extensions": false
     }
   ],
   "provisioners": [
