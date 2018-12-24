@@ -15,8 +15,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "virtualbox-iso",
-      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.09/nixos-18.09.932.09195057114/nixos-minimal-18.09.932.09195057114-i686-linux.iso",
-      "iso_checksum": "6e01f5fb41148ea4626d55cd7e409a3ebce79e96684fdc3ad73a62aa0e9749ec",
+      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.09/nixos-18.09.1799.b9fa31cea0e/nixos-minimal-18.09.1799.b9fa31cea0e-i686-linux.iso",
+      "iso_checksum": "5df2c4ba60609fcae0b464466c3b25389ee6c594188b4da9d439f3d1a1c6fa95",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux",
       "vboxmanage": [
@@ -43,8 +43,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "qemu",
-      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.09/nixos-18.09.932.09195057114/nixos-minimal-18.09.932.09195057114-i686-linux.iso",
-      "iso_checksum": "6e01f5fb41148ea4626d55cd7e409a3ebce79e96684fdc3ad73a62aa0e9749ec",
+      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.09/nixos-18.09.1799.b9fa31cea0e/nixos-minimal-18.09.1799.b9fa31cea0e-i686-linux.iso",
+      "iso_checksum": "5df2c4ba60609fcae0b464466c3b25389ee6c594188b4da9d439f3d1a1c6fa95",
       "disk_interface": "virtio-scsi",
       "qemuargs": [
         [
@@ -72,7 +72,7 @@
           "virtualbox-iso"
         ],
         "box_tag": "nixos/nixos-18.09-i686",
-        "version": "18.09.932-1"
+        "version": "18.09.1799-1"
       }
     ]
   ]
