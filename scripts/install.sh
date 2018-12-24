@@ -22,10 +22,11 @@ mount LABEL=nixos /mnt
 
 # Setup system
 nixos-generate-config --root /mnt
-curl -f "$packer_http/vagrant.nix" > /mnt/etc/nixos/vagrant.nix
-curl -f "$packer_http/vagrant-hostname.nix" > /mnt/etc/nixos/vagrant-hostname.nix
-curl -f "$packer_http/vagrant-network.nix" > /mnt/etc/nixos/vagrant-network.nix
-curl -f "$packer_http/configuration.nix" > /mnt/etc/nixos/configuration.nix
+curl -sf "$packer_http/vagrant.nix" > /mnt/etc/nixos/vagrant.nix
+curl -sf "$packer_http/vagrant-hostname.nix" > /mnt/etc/nixos/vagrant-hostname.nix
+curl -sf "$packer_http/vagrant-network.nix" > /mnt/etc/nixos/vagrant-network.nix
+curl -sf "$packer_http/builders/$PACKER_BUILDER_TYPE.nix" > /mnt/etc/nixos/hardware-builder.nix
+curl -sf "$packer_http/configuration.nix" > /mnt/etc/nixos/configuration.nix
 
 ### Install ###
 nixos-install
