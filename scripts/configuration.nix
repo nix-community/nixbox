@@ -4,6 +4,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./hardware-builder.nix
       ./vagrant.nix
     ];
 
@@ -26,9 +27,6 @@
 
   # Replace nptd by timesyncd
   services.timesyncd.enable = true;
-
-  # Enable guest additions.
-  virtualisation.virtualbox.guest.enable = true;
 
   # Packages for Vagrant
   environment.systemPackages = with pkgs; [
