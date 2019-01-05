@@ -59,6 +59,7 @@
         "echo http://{{.HTTPIP}}:{{.HTTPPort}} > .packer_http<enter>",
         "mkdir -m 0700 .ssh<enter>",
         "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter><wait>",
+        "nixos-rebuild switch<enter><wait>",
         "systemctl start sshd<enter>"
       ],
       "http_directory": "scripts",
