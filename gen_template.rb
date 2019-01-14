@@ -72,6 +72,13 @@ def gen_template(
           ['-m', '1024'],
         ],
       ),
+      builder(
+        type: 'vmware-iso',
+        iso_url: iso_url,
+        iso_checksum: iso_sha256,
+        memory: 1024,
+        guest_os_type: "Linux"
+      ),
     ],
     provisioners: [
       { type: 'shell', script: './scripts/install.sh' }
