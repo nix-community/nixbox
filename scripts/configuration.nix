@@ -15,7 +15,7 @@
   boot.loader.grub.device = "/dev/sda";
 
   # remove the fsck that runs at startup. It will always fail to run, stopping
-  # your boot until you press *. 
+  # your boot until you press *.
   boot.initrd.checkJournalingFS = false;
 
   # Services to enable:
@@ -43,7 +43,7 @@
 
   # Creates a "vagrant" users with password-less sudo access
   users = {
-    extraGroups = [ { name = "vagrant"; } { name = "vboxsf"; } ];
+    extraGroups = [ { name = "vagrant"; } ];
     extraUsers  = [
       # Try to avoid ask password
       { name = "root"; password = "vagrant"; }
@@ -51,7 +51,7 @@
         description     = "Vagrant User";
         name            = "vagrant";
         group           = "vagrant";
-        extraGroups     = [ "users" "vboxsf" "wheel" ];
+        extraGroups     = [ "users" "wheel" ];
         password        = "vagrant";
         home            = "/home/vagrant";
         createHome      = true;
