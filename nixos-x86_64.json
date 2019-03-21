@@ -52,6 +52,26 @@
           "1024"
         ]
       ]
+    },
+    {
+      "boot_wait": "40s",
+      "boot_command": [
+        "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
+        "mkdir -m 0700 .ssh<enter>",
+        "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
+        "systemctl start sshd<enter>"
+      ],
+      "http_directory": "scripts",
+      "iso_checksum_type": "sha256",
+      "shutdown_command": "shutdown -h now",
+      "ssh_private_key_file": "./scripts/install_rsa",
+      "ssh_port": 22,
+      "ssh_username": "root",
+      "type": "vmware-iso",
+      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.09/nixos-18.09.1799.b9fa31cea0e/nixos-minimal-18.09.1799.b9fa31cea0e-x86_64-linux.iso",
+      "iso_checksum": "cc7c399c5fe4672383fe54cb1d648854a0d6732765fe1a61bb38b3fe3b7c6d2f",
+      "memory": 1024,
+      "guest_os_type": "Linux"
     }
   ],
   "provisioners": [
