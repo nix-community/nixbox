@@ -15,8 +15,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "virtualbox-iso",
-      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.09/nixos-18.09.1799.b9fa31cea0e/nixos-minimal-18.09.1799.b9fa31cea0e-x86_64-linux.iso",
-      "iso_checksum": "cc7c399c5fe4672383fe54cb1d648854a0d6732765fe1a61bb38b3fe3b7c6d2f",
+      "iso_url": "https://releases.nixos.org/nixos/18.09/nixos-18.09.2498.22a606e20d6/nixos-minimal-18.09.2498.22a606e20d6-x86_64-linux.iso",
+      "iso_checksum": "b565dff428db1a2f8e54b9345b0801d832dd4bf9dd1b009ba9a1304db81e94ce",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux_64",
       "vboxmanage": [
@@ -43,8 +43,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "qemu",
-      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.09/nixos-18.09.1799.b9fa31cea0e/nixos-minimal-18.09.1799.b9fa31cea0e-x86_64-linux.iso",
-      "iso_checksum": "cc7c399c5fe4672383fe54cb1d648854a0d6732765fe1a61bb38b3fe3b7c6d2f",
+      "iso_url": "https://releases.nixos.org/nixos/18.09/nixos-18.09.2498.22a606e20d6/nixos-minimal-18.09.2498.22a606e20d6-x86_64-linux.iso",
+      "iso_checksum": "b565dff428db1a2f8e54b9345b0801d832dd4bf9dd1b009ba9a1304db81e94ce",
       "disk_interface": "virtio-scsi",
       "qemuargs": [
         [
@@ -68,8 +68,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "vmware-iso",
-      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.09/nixos-18.09.1799.b9fa31cea0e/nixos-minimal-18.09.1799.b9fa31cea0e-x86_64-linux.iso",
-      "iso_checksum": "cc7c399c5fe4672383fe54cb1d648854a0d6732765fe1a61bb38b3fe3b7c6d2f",
+      "iso_url": "https://releases.nixos.org/nixos/18.09/nixos-18.09.2498.22a606e20d6/nixos-minimal-18.09.2498.22a606e20d6-x86_64-linux.iso",
+      "iso_checksum": "b565dff428db1a2f8e54b9345b0801d832dd4bf9dd1b009ba9a1304db81e94ce",
       "memory": 1024,
       "guest_os_type": "Linux"
     }
@@ -92,7 +92,7 @@
           "virtualbox-iso"
         ],
         "box_tag": "nixos/nixos-18.09-x86_64",
-        "version": "18.09.1799-1"
+        "version": "18.09.2498-1"
       }
     ]
   ]
