@@ -87,13 +87,7 @@ def gen_template(
       {
         type: 'vagrant',
         keep_input_artifact: false,
-      },
-      {
-        type: 'vagrant-cloud',
-        only: ['virtualbox-iso'],
-        box_tag: artifact,
-        version: version,
-      },
+      }
     ]],
   )
 end
