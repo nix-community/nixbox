@@ -59,6 +59,7 @@ def gen_template(
         iso_checksum: iso_sha256,
         guest_additions_mode: 'disable',
         guest_os_type: guest_os_type,
+        disk_size: 52000,
         vboxmanage: [
           ['modifyvm', '{{.Name}}', '--memory', '1024'],
         ],
@@ -77,6 +78,7 @@ def gen_template(
         iso_url: iso_url,
         iso_checksum: iso_sha256,
         memory: 1024,
+        disk_size: 62000,
         guest_os_type: "Linux"
       ),
     ],
