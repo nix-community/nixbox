@@ -1,10 +1,10 @@
 {
   "x86_64": {
-    "iso_url": "https://releases.nixos.org/nixos/18.09/nixos-18.09.2498.22a606e20d6/nixos-minimal-18.09.2498.22a606e20d6-x86_64-linux.iso",
-    "iso_sha256": "b565dff428db1a2f8e54b9345b0801d832dd4bf9dd1b009ba9a1304db81e94ce"
+    "iso_url": "https://releases.nixos.org/nixos/19.03/nixos-19.03.172138.5c52b25283a/nixos-minimal-19.03.172138.5c52b25283a-x86_64-linux.iso",
+    "iso_sha256": "673bef3040803800ceb42ff7ab2f0a9487848121b10378edce9e64ae7d1e78de"
   },
   "i686": {
-    "iso_url": "https://releases.nixos.org/nixos/18.09/nixos-18.09.2498.22a606e20d6/nixos-minimal-18.09.2498.22a606e20d6-i686-linux.iso",
-    "iso_sha256": "084b34d6caa656d98d3dd2c3b636d37cbe65e99626892f48968f680a0723e670"
+    "iso_url": "https://releases.nixos.org/nixos/19.03/nixos-19.03.172138.5c52b25283a/nixos-minimal-19.03.172138.5c52b25283a-i686-linux.iso",
+    "iso_sha256": "313cad80e80a725add6af3b90744df7c88833a6d62b68bfe4b177964d0a81b5c"
   }
 }

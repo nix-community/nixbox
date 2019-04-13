@@ -15,10 +15,11 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "virtualbox-iso",
-      "iso_url": "https://releases.nixos.org/nixos/18.09/nixos-18.09.2498.22a606e20d6/nixos-minimal-18.09.2498.22a606e20d6-x86_64-linux.iso",
-      "iso_checksum": "b565dff428db1a2f8e54b9345b0801d832dd4bf9dd1b009ba9a1304db81e94ce",
+      "iso_url": "https://releases.nixos.org/nixos/19.03/nixos-19.03.172138.5c52b25283a/nixos-minimal-19.03.172138.5c52b25283a-x86_64-linux.iso",
+      "iso_checksum": "673bef3040803800ceb42ff7ab2f0a9487848121b10378edce9e64ae7d1e78de",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux_64",
+      "disk_size": 52000,
       "vboxmanage": [
         [
           "modifyvm",
@@ -43,8 +44,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "qemu",
-      "iso_url": "https://releases.nixos.org/nixos/18.09/nixos-18.09.2498.22a606e20d6/nixos-minimal-18.09.2498.22a606e20d6-x86_64-linux.iso",
-      "iso_checksum": "b565dff428db1a2f8e54b9345b0801d832dd4bf9dd1b009ba9a1304db81e94ce",
+      "iso_url": "https://releases.nixos.org/nixos/19.03/nixos-19.03.172138.5c52b25283a/nixos-minimal-19.03.172138.5c52b25283a-x86_64-linux.iso",
+      "iso_checksum": "673bef3040803800ceb42ff7ab2f0a9487848121b10378edce9e64ae7d1e78de",
       "disk_interface": "virtio-scsi",
       "qemuargs": [
         [
@@ -68,9 +69,10 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "vmware-iso",
-      "iso_url": "https://releases.nixos.org/nixos/18.09/nixos-18.09.2498.22a606e20d6/nixos-minimal-18.09.2498.22a606e20d6-x86_64-linux.iso",
-      "iso_checksum": "b565dff428db1a2f8e54b9345b0801d832dd4bf9dd1b009ba9a1304db81e94ce",
+      "iso_url": "https://releases.nixos.org/nixos/19.03/nixos-19.03.172138.5c52b25283a/nixos-minimal-19.03.172138.5c52b25283a-x86_64-linux.iso",
+      "iso_checksum": "673bef3040803800ceb42ff7ab2f0a9487848121b10378edce9e64ae7d1e78de",
       "memory": 1024,
+      "disk_size": 62000,
       "guest_os_type": "Linux"
     }
   ],
@@ -85,14 +87,6 @@
       {
         "type": "vagrant",
         "keep_input_artifact": false
-      },
-      {
-        "type": "vagrant-cloud",
-        "only": [
-          "virtualbox-iso"
-        ],
-        "box_tag": "nixos/nixos-18.09-x86_64",
-        "version": "18.09.2498-1"
       }
     ]
   ]
