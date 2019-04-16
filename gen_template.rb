@@ -85,6 +85,12 @@ def gen_template(
     provisioners: [
       { type: 'shell', script: './scripts/install.sh' }
     ],
+    'post-processors': [[
+      {
+        type: 'vagrant',
+        keep_input_artifact: false,
+      }
+    ]],
   )
 end
 
