@@ -81,13 +81,5 @@
       "type": "shell",
       "script": "./scripts/install.sh"
     }
-  ],
-  "post-processors": [
-    [
-      {
-        "type": "vagrant",
-        "keep_input_artifact": false
-      }
-    ]
   ]
 }
