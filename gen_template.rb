@@ -15,7 +15,7 @@ end
 
 def builder(**opts)
   {
-    boot_wait: '40s',
+    boot_wait: '45s',
     boot_command: [
       'echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>',
       'mkdir -m 0700 .ssh<enter>',
@@ -89,6 +89,7 @@ def gen_template(
       {
         type: 'vagrant',
         keep_input_artifact: false,
+        only: [ 'virtualbox-iso', 'qemu']
       }
     ]],
   )
