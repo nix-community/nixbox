@@ -1,7 +1,7 @@
 {
   "builders": [
     {
-      "boot_wait": "40s",
+      "boot_wait": "45s",
       "boot_command": [
         "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
         "mkdir -m 0700 .ssh<enter>",
@@ -15,8 +15,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "virtualbox-iso",
-      "iso_url": "https://releases.nixos.org/nixos/19.03/nixos-19.03.172138.5c52b25283a/nixos-minimal-19.03.172138.5c52b25283a-i686-linux.iso",
-      "iso_checksum": "313cad80e80a725add6af3b90744df7c88833a6d62b68bfe4b177964d0a81b5c",
+      "iso_url": "https://releases.nixos.org/nixos/19.03/nixos-19.03.173009.2516c454c35/nixos-minimal-19.03.173009.2516c454c35-i686-linux.iso",
+      "iso_checksum": "332a1f3648e733a4021548b55f456b23258675755cf8c3818acd8b66b6361e6b",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux",
       "disk_size": 52000,
@@ -30,7 +30,7 @@
       ]
     },
     {
-      "boot_wait": "40s",
+      "boot_wait": "45s",
       "boot_command": [
         "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
         "mkdir -m 0700 .ssh<enter>",
@@ -44,8 +44,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "qemu",
-      "iso_url": "https://releases.nixos.org/nixos/19.03/nixos-19.03.172138.5c52b25283a/nixos-minimal-19.03.172138.5c52b25283a-i686-linux.iso",
-      "iso_checksum": "313cad80e80a725add6af3b90744df7c88833a6d62b68bfe4b177964d0a81b5c",
+      "iso_url": "https://releases.nixos.org/nixos/19.03/nixos-19.03.173009.2516c454c35/nixos-minimal-19.03.173009.2516c454c35-i686-linux.iso",
+      "iso_checksum": "332a1f3648e733a4021548b55f456b23258675755cf8c3818acd8b66b6361e6b",
       "disk_interface": "virtio-scsi",
       "qemuargs": [
         [
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "boot_wait": "40s",
+      "boot_wait": "45s",
       "boot_command": [
         "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
         "mkdir -m 0700 .ssh<enter>",
@@ -69,8 +69,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "vmware-iso",
-      "iso_url": "https://releases.nixos.org/nixos/19.03/nixos-19.03.172138.5c52b25283a/nixos-minimal-19.03.172138.5c52b25283a-i686-linux.iso",
-      "iso_checksum": "313cad80e80a725add6af3b90744df7c88833a6d62b68bfe4b177964d0a81b5c",
+      "iso_url": "https://releases.nixos.org/nixos/19.03/nixos-19.03.173009.2516c454c35/nixos-minimal-19.03.173009.2516c454c35-i686-linux.iso",
+      "iso_checksum": "332a1f3648e733a4021548b55f456b23258675755cf8c3818acd8b66b6361e6b",
       "memory": 1024,
       "disk_size": 62000,
       "guest_os_type": "Linux"
@@ -86,7 +86,11 @@
     [
       {
         "type": "vagrant",
-        "keep_input_artifact": false
+        "keep_input_artifact": false,
+        "only": [
+          "virtualbox-iso",
+          "qemu"
+        ]
       }
     ]
   ]
