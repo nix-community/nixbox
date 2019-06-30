@@ -28,27 +28,19 @@ Building the images
 First install [packer](http://packer.io) and
 [virtualbox](https://www.virtualbox.org/).
 
-Two packer builders are currently supported:
+Three packer builders are currently supported:
 - Virtualbox
 - qemu / libvirt
+- VMware
 
-To build Virtualbox vagrant images:
+Have a look at the different `make build` target to build your image.
+
+If you build on a host that does not support Makefile, here are some examples:
 ```
 packer build --only=virtualbox-iso nixos-i686.json
-# or
-packer build --only=virtualbox-iso nixos-x86_64.json
-```
-
--or-
-
-To build qemu / libvirt vagrant images:
-```
-packer build --only=qemu nixos-i686.json
-# or
 packer build --only=qemu nixos-x86_64.json
+packer build --only=vmware-iso nixos-x86_64.json
 ```
-
----
 
 The vagrant .box image is now ready to go and you can use it in vagrant:
 
@@ -61,10 +53,15 @@ vagrant box add nixbox64 packer_virtualbox-iso_virtualbox.box
 Updating the ISO urls
 ---------------------
 
-To update the ISO urls to the latest release run: `make update_iso update_template`
+To update the ISO urls to the latest release run: `make update`
+
+Troubleshooting
+-----------------
+
+If you build on a Windows OS, please make sure you keep the unix file encoding of the generated configuration files
+(see [issue \#30](https://github.com/nix-community/nixbox/issues/30)
 
 License
 -------
 
 Copyright 2015 under the MIT
-
