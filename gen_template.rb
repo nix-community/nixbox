@@ -20,14 +20,14 @@ def builder(**opts)
       'echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>',
       'mkdir -m 0700 .ssh<enter>',
       'curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>',
-      'systemctl start sshd<enter>',
+      'sudo systemctl start sshd<enter>',
     ],
     http_directory: 'scripts',
     iso_checksum_type: 'sha256',
-    shutdown_command: 'shutdown -h now',
+    shutdown_command: 'sudo shutdown -h now',
     ssh_private_key_file: './scripts/install_rsa',
     ssh_port: 22,
-    ssh_username: 'root',
+    ssh_username: 'nixos',
   }.merge(opts)
 end
 
@@ -58,10 +58,11 @@ def gen_template(
         iso_url: iso_url,
         iso_checksum: iso_sha256,
         guest_additions_mode: 'disable',
+        format: 'ova',
         guest_os_type: guest_os_type,
-        disk_size: 52000,
+        disk_size: 57000,
         vboxmanage: [
-          ['modifyvm', '{{.Name}}', '--memory', '1024'],
+          ['modifyvm', '{{.Name}}', '--memory', '1024', '--vram', '128', '--clipboard', 'bidirectional'],
         ],
       ),
       builder(
@@ -83,7 +84,11 @@ def gen_template(
       ),
     ],
     provisioners: [
-      { type: 'shell', script: './scripts/install.sh' }
+      {
+        execute_command: "sudo su -c '{{ .Vars }} {{.Path}}'",
+        type: 'shell',
+        script: './scripts/install.sh'
+      }
     ],
     'post-processors': [[
       {

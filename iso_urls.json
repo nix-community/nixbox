@@ -1,10 +1,10 @@
 {
   "x86_64": {
-    "iso_url": "https://releases.nixos.org/nixos/19.03/nixos-19.03.173009.2516c454c35/nixos-minimal-19.03.173009.2516c454c35-x86_64-linux.iso",
-    "iso_sha256": "9dc1c904ef1a0b6d2afbd795ed694d78a98b8d0fc0bc62226db4f2b23d9f125b"
+    "iso_url": "https://releases.nixos.org/nixos/19.09/nixos-19.09.741.dbad7c7d59f/nixos-minimal-19.09.741.dbad7c7d59f-x86_64-linux.iso",
+    "iso_sha256": "3379a53f998ca7bdc9b775a06d81275df7bd2c002e7d0fa0a3036cad9c3b7aca"
   },
   "i686": {
-    "iso_url": "https://releases.nixos.org/nixos/19.03/nixos-19.03.173009.2516c454c35/nixos-minimal-19.03.173009.2516c454c35-i686-linux.iso",
-    "iso_sha256": "332a1f3648e733a4021548b55f456b23258675755cf8c3818acd8b66b6361e6b"
+    "iso_url": "https://releases.nixos.org/nixos/19.09/nixos-19.09.741.dbad7c7d59f/nixos-minimal-19.09.741.dbad7c7d59f-i686-linux.iso",
+    "iso_sha256": "c68dc1f70814d7194280f0ee5e39368408146c31757b39ec97d1f2d531b0b4b0"
   }
 }

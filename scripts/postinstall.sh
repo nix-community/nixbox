@@ -1,7 +1,9 @@
 #!/bin/sh
 
+echo "Start postinstall ..."
+
 # Make sure we are totally up to date
-nix-channel --add https://nixos.org/channels/nixos-19.03 nixos
+nix-channel --add https://nixos.org/channels/nixos-19.09 nixos
 nix-channel --update
 nixos-rebuild switch --upgrade
 
