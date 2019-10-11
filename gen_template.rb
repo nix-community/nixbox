@@ -20,7 +20,7 @@ def builder(**opts)
       'echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>',
       'mkdir -m 0700 .ssh<enter>',
       'curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>',
-      'systemctl start sshd<enter>',
+      'sudo systemctl start sshd<enter>',
     ],
     http_directory: 'scripts',
     iso_checksum_type: 'sha256',
