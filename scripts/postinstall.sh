@@ -1,9 +1,6 @@
 #!/bin/sh
 
-# Make sure we are totally up to date
-nix-channel --add https://nixos.org/channels/nixos-19.03 nixos
-nix-channel --update
-nixos-rebuild switch --upgrade
+echo "Start postinstall ..."
 
 # Cleanup any previous generations and delete old packages that can be
 # pruned.
