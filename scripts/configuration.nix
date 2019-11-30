@@ -26,7 +26,7 @@
   # Enable DBus
   services.dbus.enable    = true;
 
-  # Replace nptd by timesyncd
+  # Replace ntpd by timesyncd
   services.timesyncd.enable = true;
 
   # Packages for Vagrant
@@ -41,7 +41,7 @@
     rsync
   ];
 
-  # Creates a "vagrant" users with password-less sudo access
+  # Creates a "vagrant" user with password-less sudo access
   users = {
     extraGroups = [ { name = "vagrant"; } ];
     extraUsers  = [
