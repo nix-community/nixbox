@@ -96,7 +96,8 @@
         "only": [
           "virtualbox-iso",
           "qemu"
-        ]
+        ],
+        "output": "nixos-19.09-{{.Provider}}-x86_64.box"
       }
     ]
   ]
