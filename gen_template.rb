@@ -28,6 +28,7 @@ def builder(**opts)
     ssh_private_key_file: './scripts/install_rsa',
     ssh_port: 22,
     ssh_username: 'nixos',
+    headless: true
   }.merge(opts)
 end
 
