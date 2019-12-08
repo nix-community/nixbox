@@ -94,7 +94,8 @@ def gen_template(
       {
         type: 'vagrant',
         keep_input_artifact: false,
-        only: [ 'virtualbox-iso', 'qemu']
+        only: [ 'virtualbox-iso', 'qemu'],
+        output: "nixos-#{ver}-{{.Provider}}-#{arch}.box"
       }
     ]],
   )
