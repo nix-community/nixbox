@@ -1,4 +1,5 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env nix-shell
+#!nix-shell -i ruby
 #
 # Packer supports user variables but they are a bit awkward to use. It's
 # easier to build the config programatically.

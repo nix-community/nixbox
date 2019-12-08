@@ -1,4 +1,5 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env nix-shell
+#!nix-shell -i ruby
 #
 # Heuristic to update the ISO urls
 #
