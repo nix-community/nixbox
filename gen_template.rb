@@ -77,6 +77,7 @@ def gen_template(
         iso_checksum: iso_sha256,
         disk_interface: 'virtio-scsi',
         disk_size: '{{ user `disk_size` }}',
+        format: 'qcow2',
         qemuargs: [
           ['-m', '{{ user `memory` }}'],
         ],
