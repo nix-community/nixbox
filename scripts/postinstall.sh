@@ -10,10 +10,15 @@ for x in $(seq 0 2) ; do
   nix-collect-garbage -d
 done
 
-
 # Remove install ssh key
 rm -rf /root/.ssh /root/.packer_http
 
-# Zero out the disk (for better compression)
-dd if=/dev/zero of=/EMPTY bs=1M
-rm -rf /EMPTY
+if [[ "${PACKER_BUILDER_TYPE}" == "qemu" ]] ; then
+  echo "skipping disk zero out!"
+else
+  echo "zeroing out the disk..."
+
+  # Zero out the disk (for better compression)
+  dd if=/dev/zero of=/EMPTY bs=1M
+  rm -rf /EMPTY
+fi

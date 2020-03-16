@@ -54,6 +54,10 @@ def gen_template(
     end
 
   puts JSON.pretty_generate(
+    variables: {
+      disk_size: '10240',
+      memory: '1024',
+    },
     builders: [
       builder(
         type: 'virtualbox-iso',
@@ -62,9 +66,9 @@ def gen_template(
         guest_additions_mode: 'disable',
         format: 'ova',
         guest_os_type: guest_os_type,
-        disk_size: 57000,
+        disk_size: '{{ user `disk_size` }}',
         vboxmanage: [
-          ['modifyvm', '{{.Name}}', '--memory', '1024', '--vram', '128', '--clipboard', 'bidirectional'],
+          ['modifyvm', '{{.Name}}', '--memory', '{{ user `memory` }}', '--vram', '128', '--clipboard', 'bidirectional'],
         ],
       ),
       builder(
@@ -72,16 +76,18 @@ def gen_template(
         iso_url: iso_url,
         iso_checksum: iso_sha256,
         disk_interface: 'virtio-scsi',
+        disk_size: '{{ user `disk_size` }}',
+        format: 'qcow2',
         qemuargs: [
-          ['-m', '1024'],
+          ['-m', '{{ user `memory` }}'],
         ],
       ),
       builder(
         type: 'vmware-iso',
         iso_url: iso_url,
         iso_checksum: iso_sha256,
-        memory: 1024,
-        disk_size: 62000,
+        memory: '{{ user `memory` }}',
+        disk_size: '{{ user `disk_size` }}',
         guest_os_type: "Linux"
       ),
     ],

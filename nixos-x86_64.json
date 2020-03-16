@@ -1,4 +1,8 @@
 {
+  "variables": {
+    "disk_size": "10240",
+    "memory": "1024"
+  },
   "builders": [
     {
       "boot_wait": "45s",
@@ -21,13 +25,13 @@
       "guest_additions_mode": "disable",
       "format": "ova",
       "guest_os_type": "Linux_64",
-      "disk_size": 57000,
+      "disk_size": "{{ user `disk_size` }}",
       "vboxmanage": [
         [
           "modifyvm",
           "{{.Name}}",
           "--memory",
-          "1024",
+          "{{ user `memory` }}",
           "--vram",
           "128",
           "--clipboard",
@@ -54,10 +58,12 @@
       "iso_url": "https://releases.nixos.org/nixos/19.09/nixos-19.09.741.dbad7c7d59f/nixos-minimal-19.09.741.dbad7c7d59f-x86_64-linux.iso",
       "iso_checksum": "3379a53f998ca7bdc9b775a06d81275df7bd2c002e7d0fa0a3036cad9c3b7aca",
       "disk_interface": "virtio-scsi",
+      "disk_size": "{{ user `disk_size` }}",
+      "format": "qcow2",
       "qemuargs": [
         [
           "-m",
-          "1024"
+          "{{ user `memory` }}"
         ]
       ]
     },
@@ -79,8 +85,8 @@
       "type": "vmware-iso",
       "iso_url": "https://releases.nixos.org/nixos/19.09/nixos-19.09.741.dbad7c7d59f/nixos-minimal-19.09.741.dbad7c7d59f-x86_64-linux.iso",
       "iso_checksum": "3379a53f998ca7bdc9b775a06d81275df7bd2c002e7d0fa0a3036cad9c3b7aca",
-      "memory": 1024,
-      "disk_size": 62000,
+      "memory": "{{ user `memory` }}",
+      "disk_size": "{{ user `disk_size` }}",
       "guest_os_type": "Linux"
     }
   ],
