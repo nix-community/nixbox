@@ -4,20 +4,31 @@
 # Heuristic to update the ISO urls
 #
 
-require 'net/http'
 require 'open-uri'
-require 'uri'
 require 'json'
+require 'rexml/document'
+include REXML
 
 isos = {}
 
-ISO_RE = /"(https:\/\/[^"]+-([^-]+)-linux.iso)".*Minimal.*"(https:\/\/[^"]+.iso.sha256)"/i
-open("https://nixos.org/nixos/download.html").each_line.grep(ISO_RE) do
-  isos[$2] = {
-    iso_url: $1,
-    iso_sha256: open($3).read.strip.split.first,
-  }
-end
+xml = Document.new(open("https://nixos.org/nixos/download.html"))
+xml.root.elements.each("body/*/*/*/ul/li") { |li|
+  hrefs = li.get_elements("a").map { |a| a.attribute("href") }
+  if hrefs.size == 2 and /.*minimal.*/i =~ hrefs[0].value
+  then
+    iso_url = hrefs[0].value
+    arch_re = /https:\/\/.+-([^-]+)-linux.iso/
+    arch = arch_re.match(iso_url).captures
+    iso_sha256 = open(hrefs[1].value).read.strip.split.first
+    if arch.size == 1
+    then
+      isos[arch[0]] = {
+        iso_url: iso_url,
+        iso_sha256: iso_sha256
+      }
+    end
+  end
+}
 
 out = JSON.pretty_generate(isos)
 puts out
