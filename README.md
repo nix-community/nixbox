@@ -32,6 +32,7 @@ Three packer builders are currently supported:
 - Virtualbox
 - qemu / libvirt
 - VMware
+- Hyper-V
 
 Have a look at the different `make build` target to build your image.
 
@@ -40,6 +41,7 @@ If you build on a host that does not support Makefile, here are some examples:
 packer build --only=virtualbox-iso nixos-i686.json
 packer build --only=qemu nixos-x86_64.json
 packer build --only=vmware-iso nixos-x86_64.json
+packer build --only=hyperv-iso nixos-x86_64.json
 ```
 
 The vagrant .box image is now ready to go and you can use it in vagrant:
