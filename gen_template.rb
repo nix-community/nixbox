@@ -83,6 +83,31 @@ def gen_template(
         ],
       ),
       builder(
+        type: 'hyperv-iso',
+        generation: 1,
+        # generation: 2, # gen 2 fails uefi boot, missing configuration in builders/hyperv-iso.nix
+        iso_url: iso_url,
+        iso_checksum: iso_sha256,
+        boot_wait: "60s",
+        boot_command: [
+          "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
+          "mkdir -m 0700 .ssh<enter>",
+          "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
+          # remaining commands run as root
+          "sudo su --<enter>",
+          "nix-env -iA nixos.linuxPackages.hyperv-daemons<enter><wait10>",
+          "$(find /nix/store -executable -iname 'hv_kvp_daemon' | head -n 1)<enter><wait10>",
+          "systemctl start sshd<enter>"
+        ],
+        memory: '{{ user `memory` }}',
+        disk_size: '{{ user `disk_size` }}',
+        enable_secure_boot: false,
+        switch_name: "Default Switch",
+        differencing_disk: true,
+        communicator: 'ssh',
+        ssh_timeout: "1h"
+      ),
+      builder(
         type: 'vmware-iso',
         iso_url: iso_url,
         iso_checksum: iso_sha256,
@@ -102,7 +127,7 @@ def gen_template(
       {
         type: 'vagrant',
         keep_input_artifact: false,
-        only: [ 'virtualbox-iso', 'qemu'],
+        only: [ 'virtualbox-iso', 'qemu', 'hyperv-iso' ],
         output: "nixos-#{ver}-{{.Provider}}-#{arch}.box"
       }
     ]],
