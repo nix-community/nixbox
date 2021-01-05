@@ -24,7 +24,6 @@ def builder(**opts)
       'sudo systemctl start sshd<enter>',
     ],
     http_directory: 'scripts',
-    iso_checksum_type: 'sha256',
     shutdown_command: 'sudo shutdown -h now',
     ssh_private_key_file: './scripts/install_rsa',
     ssh_port: 22,
