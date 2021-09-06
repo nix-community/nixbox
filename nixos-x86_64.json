@@ -19,8 +19,8 @@
       "ssh_username": "nixos",
       "headless": true,
       "type": "virtualbox-iso",
-      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-x86_64-linux.iso",
-      "iso_checksum": "4dcda77f30ff97832b80b74686068c896674d09c9b222e6c05f85f91cbbbbc5b",
+      "iso_url": "https://channels.nixos.org/nixos-21.05/latest-nixos-minimal-x86_64-linux.iso",
+      "iso_checksum": "9e66b8f763cf66ca1ce0f0556e52466c91b68a58b503b086348017ace04f2437",
       "guest_additions_mode": "disable",
       "format": "ova",
       "guest_os_type": "Linux_64",
@@ -53,8 +53,8 @@
       "ssh_username": "nixos",
       "headless": true,
       "type": "qemu",
-      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-x86_64-linux.iso",
-      "iso_checksum": "4dcda77f30ff97832b80b74686068c896674d09c9b222e6c05f85f91cbbbbc5b",
+      "iso_url": "https://channels.nixos.org/nixos-21.05/latest-nixos-minimal-x86_64-linux.iso",
+      "iso_checksum": "9e66b8f763cf66ca1ce0f0556e52466c91b68a58b503b086348017ace04f2437",
       "disk_interface": "virtio-scsi",
       "disk_size": "{{ user `disk_size` }}",
       "format": "qcow2",
@@ -84,8 +84,8 @@
       "headless": true,
       "type": "hyperv-iso",
       "generation": 1,
-      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-x86_64-linux.iso",
-      "iso_checksum": "4dcda77f30ff97832b80b74686068c896674d09c9b222e6c05f85f91cbbbbc5b",
+      "iso_url": "https://channels.nixos.org/nixos-21.05/latest-nixos-minimal-x86_64-linux.iso",
+      "iso_checksum": "9e66b8f763cf66ca1ce0f0556e52466c91b68a58b503b086348017ace04f2437",
       "memory": "{{ user `memory` }}",
       "disk_size": "{{ user `disk_size` }}",
       "enable_secure_boot": false,
@@ -109,8 +109,8 @@
       "ssh_username": "nixos",
       "headless": true,
       "type": "vmware-iso",
-      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-x86_64-linux.iso",
-      "iso_checksum": "4dcda77f30ff97832b80b74686068c896674d09c9b222e6c05f85f91cbbbbc5b",
+      "iso_url": "https://channels.nixos.org/nixos-21.05/latest-nixos-minimal-x86_64-linux.iso",
+      "iso_checksum": "9e66b8f763cf66ca1ce0f0556e52466c91b68a58b503b086348017ace04f2437",
       "memory": "{{ user `memory` }}",
       "disk_size": "{{ user `disk_size` }}",
       "guest_os_type": "Linux"
@@ -133,7 +133,7 @@
           "qemu",
           "hyperv-iso"
         ],
-        "output": "nixos-20.09-{{.Provider}}-x86_64.box"
+        "output": "nixos-21.05-{{.Provider}}-x86_64.box"
       }
     ]
   ]
