@@ -47,9 +47,9 @@ packer build --only=hyperv-iso nixos-x86_64.json
 The vagrant .box image is now ready to go and you can use it in vagrant:
 
 ```
-vagrant box add nixbox32 packer_virtualbox-iso_virtualbox.box
+vagrant box add nixbox32 nixos-21.05-virtualbox-i686.box
 # or
-vagrant box add nixbox64 packer_virtualbox-iso_virtualbox.box
+vagrant box add nixbox64 nixos-21.05-virtualbox-x86_64.box
 ```
 
 Updating the ISO urls
