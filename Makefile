@@ -1,27 +1,13 @@
-BUILDERS ?= "virtualbox-iso"
+BUILDERS ?= "virtualbox-iso.virtualbox"
 
-all: update build
-
-update: update_iso update_template
-
-# Fetches the latest iso urls
-update_iso: iso_urls_update.rb
-	./iso_urls_update.rb
-
-update_template: nixos-i686.json nixos-x86_64.json
-
-nixos-i686.json: gen_template.rb iso_urls.json
-	./gen_template.rb i686 > $@
-
-nixos-x86_64.json: gen_template.rb iso_urls.json
-	./gen_template.rb x86_64 > $@
+all: build
 
 build: build-i686 build-x86_64
 
-build-i686: nixos-i686.json
-	packer build --only=${BUILDERS} $<
+build-i686: nixos.pkr.hcl
+	packer build -var-file="nixos.auto.pkvars.hcl" -var arch=i686 --only=${BUILDERS} $<
 
-build-x86_64: nixos-x86_64.json
-	packer build --only=${BUILDERS} $<
+build-x86_64: nixos.pkr.hcl
+	packer build -var-file="nixos.auto.pkvars.hcl" -var arch=x86_64 --only=${BUILDERS} $<
 
-.PHONY: all update update_iso update_template build-i686 build-x86_64
+.PHONY: all build-i686 build-x86_64
