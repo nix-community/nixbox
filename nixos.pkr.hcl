@@ -44,7 +44,7 @@ source "hyperv-iso" "hyperv" {
   boot_command         = [
     "echo http://{{ .HTTPIP }}:{{ .HTTPPort }} > .packer_http<enter>",
     "mkdir -m 0700 .ssh<enter>",
-    "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
+    "curl $(cat .packer_http)/install_ed25519.pub > .ssh/authorized_keys<enter>",
     "sudo su --<enter>", "nix-env -iA nixos.linuxPackages.hyperv-daemons<enter><wait10>",
     "$(find /nix/store -executable -iname 'hv_kvp_daemon' | head -n 1)<enter><wait10>",
     "systemctl start sshd<enter>"
@@ -62,7 +62,7 @@ source "hyperv-iso" "hyperv" {
   memory               = var.memory
   shutdown_command     = "sudo shutdown -h now"
   ssh_port             = 22
-  ssh_private_key_file = "./scripts/install_rsa"
+  ssh_private_key_file = "./scripts/install_ed25519"
   ssh_timeout          = "1h"
   ssh_username         = "nixos"
   switch_name          = "Default Switch"
@@ -94,7 +94,7 @@ source "virtualbox-iso" "virtualbox" {
   boot_command         = [
     "echo http://{{ .HTTPIP }}:{{ .HTTPPort }} > .packer_http<enter>",
     "mkdir -m 0700 .ssh<enter>",
-    "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
+    "curl $(cat .packer_http)/install_ed25519.pub > .ssh/authorized_keys<enter>",
     "sudo systemctl start sshd<enter>"
   ]
   boot_wait            = "45s"
@@ -108,7 +108,7 @@ source "virtualbox-iso" "virtualbox" {
   iso_url              = local.iso_url
   shutdown_command     = "sudo shutdown -h now"
   ssh_port             = 22
-  ssh_private_key_file = "./scripts/install_rsa"
+  ssh_private_key_file = "./scripts/install_ed25519"
   ssh_username         = "nixos"
   vboxmanage           = [["modifyvm", "{{ .Name }}", "--memory", var.memory, "--vram", "128", "--clipboard", "bidirectional"]]
 }
@@ -117,7 +117,7 @@ source "vmware-iso" "vmware" {
   boot_command         = [
     "echo http://{{ .HTTPIP }}:{{ .HTTPPort }} > .packer_http<enter>",
     "mkdir -m 0700 .ssh<enter>",
-    "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
+    "curl $(cat .packer_http)/install_ed25519.pub > .ssh/authorized_keys<enter>",
     "sudo systemctl start sshd<enter>"
   ]
   boot_wait            = "45s"
@@ -130,7 +130,7 @@ source "vmware-iso" "vmware" {
   memory               = var.memory
   shutdown_command     = "sudo shutdown -h now"
   ssh_port             = 22
-  ssh_private_key_file = "./scripts/install_rsa"
+  ssh_private_key_file = "./scripts/install_ed25519"
   ssh_username         = "nixos"
 }
 
