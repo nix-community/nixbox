@@ -5,7 +5,7 @@
   virtualisation.hypervGuest.enable = true;
 
   # Enable systemd efi bootloader
-  boot.loader.systemd-boot.enable   = true;
+  # boot.loader.systemd-boot.enable   = true;
 
   environment.systemPackages = with pkgs; [
     cifs-utils

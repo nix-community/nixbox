@@ -57,8 +57,8 @@ source "hyperv-iso" "hyperv" {
   generation           = 1
   headless             = true
   http_directory       = "scripts"
-  iso_checksum         = var.iso_checksum
-  iso_url              = var.iso_url
+  iso_checksum         = local.iso_checksum
+  iso_url              = local.iso_url
   memory               = var.memory
   shutdown_command     = "sudo shutdown -h now"
   ssh_port             = 22
