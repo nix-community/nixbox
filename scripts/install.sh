@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-packer_http=$(cat .packer_http)
+packer_http=$PACKER_HTTP_ADDR
 
 # Partition disk
 cat <<FDISK | fdisk /dev/sda
