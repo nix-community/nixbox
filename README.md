@@ -53,6 +53,13 @@ Four packer builders are currently supported:
 
 Have a look at the different `make build` target to build your image.
 
+```
+make # Build latest version for all architectures
+make VERSION=22.05 # Build specific version
+make VERSION=22.05 build-x86_64 # Build specific version for specific architectures
+```
+
+
 If you build on a host that does not support Makefile, here are some examples:
 ```
 packer build --only=virtualbox-iso.virtualbox -var version=22.05 nixos.pkr.hcl
