@@ -54,9 +54,12 @@ Four packer builders are currently supported:
 Have a look at the different `make build` target to build your image.
 
 ```
-make # Build latest version for all architectures
-make VERSION=22.05 # Build specific version
-make VERSION=22.05 build-x86_64 # Build specific version for specific architectures
+make build-all # Build latest version for all architectures
+make VERSION=22.05 build # Build specific version for x86_64 architecture
+make VERSION=22.05 ARCH=i686 build # Build specific version for specific architecture
+
+make vagrant-add
+make vagrant-push
 ```
 
 

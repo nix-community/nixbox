@@ -2,6 +2,11 @@ locals {
     iso_url = "https://channels.nixos.org/nixos-${var.version}/latest-nixos-minimal-${var.arch}-linux.iso"
 }
 
+variable "builder" {
+  description = "builder"
+  type = string
+}
+
 variable "version" {
   description = "The version of NixOS to build"
   type = string
@@ -144,6 +149,6 @@ build {
   post-processor "vagrant" {
     keep_input_artifact = false
     only                = ["virtualbox-iso.virtualbox", "qemu.qemu", "hyperv-iso.hyperv"]
-    output              = "nixos-${var.version}-{{.Provider}}-${var.arch}.box"
+    output              = "nixos-${var.version}-${var.builder}-${var.arch}.box"
   }
 }
