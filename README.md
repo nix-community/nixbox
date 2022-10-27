@@ -53,6 +53,16 @@ Four packer builders are currently supported:
 
 Have a look at the different `make build` target to build your image.
 
+```
+make build-all # Build latest version for all architectures
+make VERSION=22.05 build # Build specific version for x86_64 architecture
+make VERSION=22.05 ARCH=i686 build # Build specific version for specific architecture
+
+make vagrant-add
+make vagrant-push
+```
+
+
 If you build on a host that does not support Makefile, here are some examples:
 ```
 packer build --only=virtualbox-iso.virtualbox -var version=22.05 nixos.pkr.hcl
@@ -77,6 +87,30 @@ Troubleshooting
 * Timeouts are a common issue for build failures. These can be a bit tough to
   figure out. increase the `boot_wait` value in `nixos.auto.pkvars.hcl` if you
   think timeouts may be the cause of your build failures.
+
+# Sample Vagrantfile
+
+```
+Vagrant.configure("2") do |config|
+
+  # Disable shared virtualbox mount path (not vboxsf installed on guest)
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+
+  # Use a suitable NixOS base. VM built with nixbox are tested to work with
+  # this plugin.
+  config.vm.box = "nixos-22.05"
+
+  # Add the htop package
+  config.vm.provision :nixos,
+    run: 'always',
+    expression: {
+      environment: {
+        systemPackages: [ :htop ]
+      }
+    }
+
+end
+```
 
 License
 -------

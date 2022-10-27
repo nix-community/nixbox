@@ -6,5 +6,6 @@ stdenv.mkDerivation {
     gnumake
     packer
     ruby
+    vagrant
   ];
 }
