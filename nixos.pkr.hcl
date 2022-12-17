@@ -1,6 +1,10 @@
 locals {
     iso_url = "https://channels.nixos.org/nixos-${var.version}/latest-nixos-minimal-${var.arch}-linux.iso"
-    iso_checksum = var.iso_checksums[var.version][var.arch]
+}
+
+variable "builder" {
+  description = "builder"
+  type = string
 }
 
 variable "version" {
@@ -14,14 +18,9 @@ variable "arch" {
   default = "x86_64"
 }
 
-variable "iso_checksums" {
-  description = "An map of objects that define ISO checksums"
-  type = map(
-    object({
-      x86_64 = string
-      i686 = string
-    })
-  )
+variable "iso_checksum" {
+  description = "A ISO SHA256 value"
+  type = string
 }
 
 variable "disk_size" {
@@ -57,7 +56,7 @@ source "hyperv-iso" "hyperv" {
   generation           = 1
   headless             = true
   http_directory       = "scripts"
-  iso_checksum         = local.iso_checksum
+  iso_checksum         = var.iso_checksum
   iso_url              = local.iso_url
   memory               = var.memory
   shutdown_command     = "sudo shutdown -h now"
@@ -81,7 +80,7 @@ source "qemu" "qemu" {
   format               = "qcow2"
   headless             = true
   http_directory       = "scripts"
-  iso_checksum         = local.iso_checksum
+  iso_checksum         = var.iso_checksum
   iso_url              = local.iso_url
   qemuargs             = [["-m", var.memory]]
   shutdown_command     = "sudo shutdown -h now"
@@ -104,7 +103,7 @@ source "virtualbox-iso" "virtualbox" {
   guest_os_type        = "Linux_64"
   headless             = true
   http_directory       = "scripts"
-  iso_checksum         = local.iso_checksum
+  iso_checksum         = var.iso_checksum
   iso_url              = local.iso_url
   shutdown_command     = "sudo shutdown -h now"
   ssh_port             = 22
@@ -125,7 +124,7 @@ source "vmware-iso" "vmware" {
   guest_os_type        = "Linux"
   headless             = true
   http_directory       = "scripts"
-  iso_checksum         = local.iso_checksum
+  iso_checksum         = var.iso_checksum
   iso_url              = local.iso_url
   memory               = var.memory
   shutdown_command     = "sudo shutdown -h now"
@@ -150,6 +149,6 @@ build {
   post-processor "vagrant" {
     keep_input_artifact = false
     only                = ["virtualbox-iso.virtualbox", "qemu.qemu", "hyperv-iso.hyperv"]
-    output              = "nixos-${var.version}-{{.Provider}}-${var.arch}.box"
+    output              = "nixos-${var.version}-${var.builder}-${var.arch}.box"
   }
 }
