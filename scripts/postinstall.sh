@@ -11,7 +11,6 @@ for x in $(seq 0 2) ; do
 done
 
 # Remove install ssh key
-rm -rf /nixos/.ssh /nixos/.packer_http
 
 if [[ "${PACKER_BUILDER_TYPE}" == "qemu" ]] ; then
   echo "skipping disk zero out!"
