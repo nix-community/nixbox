@@ -9,7 +9,7 @@
 arch = ENV["ARCH"]
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "nixbox-" + arch
+  config.vm.box = "nixbox-" + arch.to_s
   config.disksize.size = '50GB'
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
