@@ -22,6 +22,10 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.openssh.extraConfig =
+    ''
+      PubkeyAcceptedKeyTypes +ssh-rsa
+    '';
 
   # Enable DBus
   services.dbus.enable    = true;

@@ -10,8 +10,6 @@ for x in $(seq 0 2) ; do
   nix-collect-garbage -d
 done
 
-# Remove install ssh key
-rm -rf /root/.ssh /root/.packer_http
 
 if [[ "${PACKER_BUILDER_TYPE}" == "qemu" ]] ; then
   echo "skipping disk zero out!"

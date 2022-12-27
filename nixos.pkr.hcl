@@ -41,9 +41,8 @@ variable "boot_wait" {
 
 source "hyperv-iso" "hyperv" {
   boot_command         = [
-    "echo http://{{ .HTTPIP }}:{{ .HTTPPort }} > .packer_http<enter>",
     "mkdir -m 0700 .ssh<enter>",
-    "curl $(cat .packer_http)/install_ed25519.pub > .ssh/authorized_keys<enter>",
+    "curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/install_ed25519.pub > .ssh/authorized_keys<enter>",
     "sudo su --<enter>", "nix-env -iA nixos.linuxPackages.hyperv-daemons<enter><wait10>",
     "$(find /nix/store -executable -iname 'hv_kvp_daemon' | head -n 1)<enter><wait10>",
     "systemctl start sshd<enter>"
@@ -69,9 +68,8 @@ source "hyperv-iso" "hyperv" {
 
 source "qemu" "qemu" {
   boot_command         = [
-    "echo http://{{ .HTTPIP }}:{{ .HTTPPort }} > .packer_http<enter>",
     "mkdir -m 0700 .ssh<enter>",
-    "curl $(cat .packer_http)/install_ed25519.pub > .ssh/authorized_keys<enter>",
+    "curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/install_ed25519.pub > .ssh/authorized_keys<enter>",
     "sudo systemctl start sshd<enter>"
   ]
   boot_wait            = var.boot_wait
@@ -91,9 +89,8 @@ source "qemu" "qemu" {
 
 source "virtualbox-iso" "virtualbox" {
   boot_command         = [
-    "echo http://{{ .HTTPIP }}:{{ .HTTPPort }} > .packer_http<enter>",
     "mkdir -m 0700 .ssh<enter>",
-    "curl $(cat .packer_http)/install_ed25519.pub > .ssh/authorized_keys<enter>",
+    "curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/install_ed25519.pub > .ssh/authorized_keys<enter>",
     "sudo systemctl start sshd<enter>"
   ]
   boot_wait            = "45s"
@@ -114,9 +111,8 @@ source "virtualbox-iso" "virtualbox" {
 
 source "vmware-iso" "vmware" {
   boot_command         = [
-    "echo http://{{ .HTTPIP }}:{{ .HTTPPort }} > .packer_http<enter>",
     "mkdir -m 0700 .ssh<enter>",
-    "curl $(cat .packer_http)/install_ed25519.pub > .ssh/authorized_keys<enter>",
+    "curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/install_ed25519.pub > .ssh/authorized_keys<enter>",
     "sudo systemctl start sshd<enter>"
   ]
   boot_wait            = "45s"
