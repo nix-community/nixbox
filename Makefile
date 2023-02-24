@@ -2,7 +2,7 @@ BUILDER ?= virtualbox-iso.virtualbox
 VERSION ?= 22.05
 ARCH ?= x86_64
 REPO ?= nixos/nixos
-BUILD_PROVIBE = $(word 2, $(subst ., ,${BUILDER}))
+BUILD_PROVIBER = $(word 2, $(subst ., ,${BUILDER}))
 
 all: help
 
@@ -33,7 +33,7 @@ vagrant-add: vagrant-plugin ## Add vagrant box
 	@test -f nixos-${VERSION}-${BUILDER}-${ARCH}.box && ARCH=${ARCH} vagrant box add --force nixbox-${ARCH} nixos-${VERSION}-${BUILDER}-${ARCH}.box	
 
 vagrant-up: ## Try builded vagrant box
-	@ARCH="${ARCH}" vagrant up --provider ${BUILD_PROVIBE}
+	@ARCH="${ARCH}" vagrant up --provider ${BUILD_PROVIBER}
 
 vagrant-ssh: ## Connect to vagrant box
 	@ARCH="${ARCH}" vagrant ssh
@@ -47,4 +47,4 @@ vagrant-push: vagrant-plugin ## Push builded vagrant box
 	--release \
 	--no-private \
 	--short-description "NixOS ${VERSION}" \
-	${REPO}-${VERSION} ${VERSION} ${BUILD_PROVIBE} nixos-${VERSION}-${BUILDER}-${ARCH}.box
+	${REPO}-${VERSION} ${VERSION} ${BUILD_PROVIBER} nixos-${VERSION}-${BUILDER}-${ARCH}.box
