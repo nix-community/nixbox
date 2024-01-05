@@ -16,5 +16,14 @@ Vagrant.configure("2") do |config|
     vb.memory = "4096"
   end
 
+  config.vm.provider "qemu" do |qe|
+    qe.arch = "x86_64"
+    qe.machine = "q35"
+    qe.cpu = "max"
+    qe.net_device = "virtio-net-pci"
+    qe.memory = "1024"
+    qe.qemu_dir = "/usr/lib/qemu"
+  end
+
   config.ssh.insert_key = false
 end
