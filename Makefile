@@ -12,14 +12,15 @@ help: ## This help
 version:
 	@echo "Build for ${ARCH} architecture and using the ${VERSION} NixOS iso version"
 
-build: version nixos.pkr.hcl ## [BUILDER] [ARCH] [VERSION] Build packer image
-	@packer build \
+build: nixos.pkr.hcl version ## [BUILDER] [ARCH] [VERSION] Build packer image
+	packer init $<
+	packer build \
 	-var arch=${ARCH} \
 	-var builder="${BUILDER}" \
 	-var version=${VERSION} \
 	-var iso_checksum="$(shell curl -sL https://channels.nixos.org/nixos-${VERSION}/latest-nixos-minimal-${ARCH}-linux.iso.sha256 | grep -Eo '^[0-9a-z]{64}')" \
 	--only=${BUILDER} \
-	nixos.pkr.hcl
+	$<
 
 build-all: ## [BUILDER] [VERSION] Build packer image
 	@${MAKE} BUILDER=${BUILDER} VERSION=${VERSION} ARCH=x86_64 build
