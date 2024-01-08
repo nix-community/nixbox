@@ -1,0 +1,31 @@
+name: Release CI
+
+on:
+  push:
+    branches: [ "release/*" ]
+
+jobs:
+  build:
+    name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }}
+    if: runner.os != 'hyperv-iso.hyperv' || runner.os != 'vmware-iso.vmware'
+    runs-on: macos-12
+    strategy:
+      matrix:
+        BUILDER: ['virtualbox-iso.virtualbox', 'qemu.qemu', 'vmware-iso.vmware', 'hyperv-iso.hyperv']
+        ARCH: ['x86_64']
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup `packer`
+      uses: hashicorp/setup-packer@main
+      id: setup
+      with:
+        version: "latest"
+  
+    - name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }}
+      run: make VERSION=${{ github.ref }} BUILDER=${{ matrix.BUILDER }} build
+
+    - name: Run push VagrantCLoud
+      env:
+        ATLAS_TOKEN: ${{ github.ATLAS_TOKEN }}
+      run: make VERSION=${{ github.ref }} BUILDER=${{ matrix.BUILDER }} vagrant-push
