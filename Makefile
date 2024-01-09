@@ -20,6 +20,7 @@ build: nixos.pkr.hcl version ## [BUILDER] [ARCH] [VERSION] Build packer image
 	-var version=${VERSION} \
 	-var iso_checksum="$(shell curl -sL https://channels.nixos.org/nixos-${VERSION}/latest-nixos-minimal-${ARCH}-linux.iso.sha256 | grep -Eo '^[0-9a-z]{64}')" \
 	--only=${BUILDER} \
+	--except=vagrant-cloud \
 	$<
 
 build-all: ## [BUILDER] [VERSION] Build packer image
@@ -49,5 +50,12 @@ vagrant-push: vagrant-plugin ## Push builded vagrant box
 	--no-private \
 	--short-description "NixOS ${VERSION}" \
 	${REPO}-${VERSION} ${VERSION} ${BUILD_PROVIDER} nixos-${VERSION}-${BUILDER}-${ARCH}.box
-packer-push:  ##Use packer push to vagrant-cloud
-	@test -f nixos-${VERSION}-${BUILDER}-${ARCH}.box && ARCH="${ARCH}"  packer push
+packer-build:  nixos.pkr.hcl version ##Use packer push to vagrant-cloud
+	packer init $<
+	packer build \
+	-var arch=${ARCH} \
+	-var builder="${BUILDER}" \
+	-var version=${VERSION} \
+	-var iso_checksum="$(shell curl -sL https://channels.nixos.org/nixos-${VERSION}/latest-nixos-minimal-${ARCH}-linux.iso.sha256 | grep -Eo '^[0-9a-z]{64}')" \
+	--only=${BUILDER} \
+	$<

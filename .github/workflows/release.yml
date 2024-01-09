@@ -2,7 +2,7 @@ name: Release CI
 
 on:
   push:
-    branches: [ "release/*" ]
+    branches: [ "nixos-**" ]
 
 jobs:
   build:
@@ -21,11 +21,8 @@ jobs:
       id: setup
       with:
         version: "latest"
-  
-    - name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }}
-      run: make VERSION=${{ github.ref }} BUILDER=${{ matrix.BUILDER }} build
 
-    - name: Run push VagrantCLoud
+    - name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }} and push box to vagrant cloud
       env:
-        ATLAS_TOKEN: ${{ github.ATLAS_TOKEN }}
-      run: make VERSION=${{ github.ref }} BUILDER=${{ matrix.BUILDER }} packer-push
+        ATLAS_TOKEN: ${{ secrets.ATLAS_TOKEN }}
+      run: make VERSION=${{ github.ref }} BUILDER=${{ matrix.BUILDER }} packer-build

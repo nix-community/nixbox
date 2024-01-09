@@ -64,7 +64,7 @@ variable "boot_wait" {
   default = "120s"
 }
 
-variable "cloud_reop" {
+variable "cloud_repo" {
   type    = string
   default = "nixbox/nixos"
 }
@@ -72,6 +72,15 @@ variable "cloud_reop" {
 variable "cloud_token" {
   type    = string
   default = "${env("ATLAS_TOKEN")}"
+}
+
+variable "vagrant_cloud_arch" {
+  type    = map(string)
+  default = {
+    "i386" = "i386"
+    "x86-64" = "amd64"
+    "aarch64" = "arm64"
+  }
 }
 
 source "hyperv-iso" "hyperv" {
@@ -139,9 +148,8 @@ source "virtualbox-iso" "virtualbox" {
   iso_url              = local.iso_url
   shutdown_command     = "sudo shutdown -h now"
   ssh_port             = 22
-  ssh_private_key_file = "./scripts/install_ed25519"
   ssh_username         = "nixos"
-  vboxmanage           = [["modifyvm", "{{ .Name }}", "--memory", var.memory, "--vram", "128", "--clipboard", "bidirectional"]]
+  vboxmanage           = [["modifyvm", "{{ .Name }}", "--memory", var.memory, "--vram", "128", "--clipboard", "bidirectional", "--nat-localhostreachable1", "on"]]
 }
 
 source "vmware-iso" "vmware" {
@@ -176,7 +184,7 @@ build {
     execute_command = "sudo su -c '{{ .Vars }} {{ .Path }}'"
     script          = "./scripts/install.sh"
   }
-
+    
   post-processors {
     post-processor "vagrant" {
       keep_input_artifact = false
@@ -185,9 +193,9 @@ build {
     }
     post-processor "vagrant-cloud" {
       access_token = "${var.cloud_token}"
-      box_tag      = "${var.cloud_reop}""
+      box_tag      = "${var.cloud_repo}"
       version      = "${var.version}"
-      architecture = "${var.architecture}"
+      architecture = "${lookup(var.vagrant_cloud_arch, var.arch, "amd64")}"
     }
   }
 }
