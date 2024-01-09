@@ -64,6 +64,16 @@ variable "boot_wait" {
   default = "120s"
 }
 
+variable "cloud_reop" {
+  type    = string
+  default = "nixbox/nixos"
+}
+
+variable "cloud_token" {
+  type    = string
+  default = "${env("ATLAS_TOKEN")}"
+}
+
 source "hyperv-iso" "hyperv" {
   boot_command         = [
     "mkdir -m 0700 .ssh<enter>",
@@ -167,9 +177,17 @@ build {
     script          = "./scripts/install.sh"
   }
 
-  post-processor "vagrant" {
-    keep_input_artifact = false
-    only                = ["virtualbox-iso.virtualbox", "qemu.qemu", "hyperv-iso.hyperv"]
-    output              = "nixos-${var.version}-${var.builder}-${var.arch}.box"
+  post-processors {
+    post-processor "vagrant" {
+      keep_input_artifact = false
+      only                = ["virtualbox-iso.virtualbox", "qemu.qemu", "hyperv-iso.hyperv"]
+      output              = "nixos-${var.version}-${var.builder}-${var.arch}.box"
+    }
+    post-processor "vagrant-cloud" {
+      access_token = "${var.cloud_token}"
+      box_tag      = "${var.cloud_reop}""
+      version      = "${var.version}"
+      architecture = "${var.architecture}"
+    }
   }
 }

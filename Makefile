@@ -1,7 +1,7 @@
 BUILDER ?= virtualbox-iso.virtualbox
 VERSION ?= 22.05
 ARCH ?= x86_64
-REPO ?= nixos/nixos
+REPO ?= nixbox/nixos
 BUILD_PROVIDER = $(word 2, $(subst ., ,${BUILDER}))
 
 all: help
@@ -49,3 +49,5 @@ vagrant-push: vagrant-plugin ## Push builded vagrant box
 	--no-private \
 	--short-description "NixOS ${VERSION}" \
 	${REPO}-${VERSION} ${VERSION} ${BUILD_PROVIDER} nixos-${VERSION}-${BUILDER}-${ARCH}.box
+packer-push:  ##Use packer push to vagrant-cloud
+	@test -f nixos-${VERSION}-${BUILDER}-${ARCH}.box && ARCH="${ARCH}"  packer push

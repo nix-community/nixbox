@@ -28,4 +28,4 @@ jobs:
     - name: Run push VagrantCLoud
       env:
         ATLAS_TOKEN: ${{ github.ATLAS_TOKEN }}
-      run: make VERSION=${{ github.ref }} BUILDER=${{ matrix.BUILDER }} vagrant-push
+      run: make VERSION=${{ github.ref }} BUILDER=${{ matrix.BUILDER }} packer-push
