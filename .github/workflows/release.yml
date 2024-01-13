@@ -24,4 +24,4 @@ jobs:
     - name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }} and push box to vagrant cloud
       env:
         ATLAS_TOKEN: ${{ secrets.ATLAS_TOKEN }}
-      run: make VERSION=${{ github.ref }} BUILDER=${{ matrix.BUILDER }} packer-build
+      run: make VERSION=${GITHUB_REF#refs/heads/nixos-} BUILDER=${{ matrix.BUILDER }} packer-build
