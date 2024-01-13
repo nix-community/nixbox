@@ -1,5 +1,5 @@
 BUILDER ?= virtualbox-iso.virtualbox
-VERSION ?= 22.05
+VERSION ?= 23.05
 ARCH ?= x86_64
 REPO ?= nixbox/nixos
 BUILD_PROVIDER = $(word 2, $(subst ., ,${BUILDER}))
