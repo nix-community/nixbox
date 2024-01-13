@@ -149,7 +149,7 @@ source "virtualbox-iso" "virtualbox" {
   shutdown_command     = "sudo shutdown -h now"
   ssh_port             = 22
   ssh_username         = "nixos"
-  vboxmanage           = [["modifyvm", "{{ .Name }}", "--memory", var.memory, "--vram", "128", "--clipboard", "bidirectional", "--nat-localhostreachable1", "on"]]
+  vboxmanage           = [["modifyvm", "{{ .Name }}", "--memory", var.memory, "--vram", "128", "--clipboard", "bidirectional"]]
 }
 
 source "vmware-iso" "vmware" {

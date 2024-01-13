@@ -16,7 +16,13 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Create Vagrant Cloud Box
-      run: curl 'https://vagrantcloud.com/api/v2/box/nixbox/nixos/version/${GITHUB_REF#refs/heads/nixos-}/provider/virtualbox/amd64/upload?access_token=${{ secrets.ATLAS_TOKEN }}
+      run: |
+        curl \
+        --request POST \
+        --header "Content-Type: application/json" \
+        --header "Authorization: Bearer ${{ secrets.ATLAS_TOKEN }}" \
+        https://app.vagrantup.com/api/v2/boxes \
+        --data '{ "box": { "username": "nixbox", "name": "nixos" } }'
 
     - name: Setup `packer`
       uses: hashicorp/setup-packer@main
@@ -28,3 +34,11 @@ jobs:
       env:
         ATLAS_TOKEN: ${{ secrets.ATLAS_TOKEN }}
       run: make VERSION=${GITHUB_REF#refs/heads/nixos-} BUILDER=${{ matrix.BUILDER }} packer-build
+
+    - name: Release the Vagrant Cloud box
+      run: |
+       curl \
+       --request PUT \
+       --header "Authorization: Bearer ${{ secrets.ATLAS_TOKEN }}" \
+       "https://app.vagrantup.com/api/v2/box/nixbox/nixos/version/${GITHUB_REF#refs/heads/nixos-}/release"
+
