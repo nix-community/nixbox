@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }}
-    if: runner.os != 'hyperv-iso.hyperv' || runner.os != 'vmware-iso.vmware'
+    if: ${{ matrix.BUILDER }} != 'hyperv-iso.hyperv' || ${{ matrix.BUILDER }} != 'vmware-iso.vmware'
     runs-on: macos-12
     strategy:
       matrix:
