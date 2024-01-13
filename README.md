@@ -66,10 +66,10 @@ make vagrant-push
 If you build on a host that does not support Makefile, here are some examples:
 
 ```shell
-packer build --only=virtualbox-iso.virtualbox -var version=22.05 nixos.pkr.hcl
-packer build --only=qemu.qemu -var version=22.05 nixos.pkr.hcl
-packer build --only=vmware-iso.vmware -var version=22.05 nixos.pkr.hcl
-packer build -var-file="nixos.auto.pkvars.hcl" --only=hyperv-iso.hyperv nixos.pkr.hcl
+packer build --only=virtualbox-iso.virtualbox -var version=22.05 --except=vagrant-cloud nixos.pkr.hcl
+packer build --only=qemu.qemu -var version=22.05 --except=vagrant-cloud nixos.pkr.hcl
+packer build --only=vmware-iso.vmware -var version=22.05 --except=vagrant-cloud nixos.pkr.hcl
+packer build -var-file="nixos.auto.pkvars.hcl" --only=hyperv-iso.hyperv --except=vagrant-cloud nixos.pkr.hcl
 ```
 
 The vagrant .box image is now ready to go and you can use it in vagrant:

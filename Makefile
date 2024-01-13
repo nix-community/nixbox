@@ -1,7 +1,7 @@
 BUILDER ?= virtualbox-iso.virtualbox
 VERSION ?= 22.05
 ARCH ?= x86_64
-REPO ?= nixos/nixos
+REPO ?= nixbox/nixos
 BUILD_PROVIDER = $(word 2, $(subst ., ,${BUILDER}))
 
 all: help
@@ -20,6 +20,7 @@ build: nixos.pkr.hcl version ## [BUILDER] [ARCH] [VERSION] Build packer image
 	-var version=${VERSION} \
 	-var iso_checksum="$(shell curl -sL https://channels.nixos.org/nixos-${VERSION}/latest-nixos-minimal-${ARCH}-linux.iso.sha256 | grep -Eo '^[0-9a-z]{64}')" \
 	--only=${BUILDER} \
+	--except=vagrant-cloud \
 	$<
 
 build-all: ## [BUILDER] [VERSION] Build packer image
@@ -49,3 +50,12 @@ vagrant-push: vagrant-plugin ## Push builded vagrant box
 	--no-private \
 	--short-description "NixOS ${VERSION}" \
 	${REPO}-${VERSION} ${VERSION} ${BUILD_PROVIDER} nixos-${VERSION}-${BUILDER}-${ARCH}.box
+packer-build:  nixos.pkr.hcl version ##Use packer push to vagrant-cloud
+	packer init $<
+	packer build \
+	-var arch=${ARCH} \
+	-var builder="${BUILDER}" \
+	-var version=${VERSION} \
+	-var iso_checksum="$(shell curl -sL https://channels.nixos.org/nixos-${VERSION}/latest-nixos-minimal-${ARCH}-linux.iso.sha256 | grep -Eo '^[0-9a-z]{64}')" \
+	--only=${BUILDER} \
+	$<
