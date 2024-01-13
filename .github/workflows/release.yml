@@ -20,7 +20,7 @@ jobs:
         curl \
         --request POST \
         --header "Content-Type: application/json" \
-        --header "Authorization: Bearer $ATLAS_TOKEN" \
+        --header "Authorization: Bearer ${{ secrets.ATLAS_TOKEN }}" \
         https://app.vagrantup.com/api/v2/boxes \
         --data '{ "box": { "username": "nixbox", "name": "nixos" } }'
 
