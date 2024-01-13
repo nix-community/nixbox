@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }}
-    runs-on: macos-12
+    runs-on: macos-latest
     strategy:
       matrix:
         BUILDER: ['virtualbox-iso.virtualbox', 'qemu.qemu']
