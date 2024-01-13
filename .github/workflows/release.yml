@@ -15,6 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Create Vagrant Cloud Box
+      run: curl "https://vagrantcloud.com/api/v2/box/nixbox/nixos/version/${GITHUB_REF#refs/heads/nixos-}/provider/virtualbox/amd64/upload?access_token=${{ secrets.ATLAS_TOKEN }}"
+
     - name: Setup `packer`
       uses: hashicorp/setup-packer@main
       id: setup
