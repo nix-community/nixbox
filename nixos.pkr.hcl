@@ -195,7 +195,5 @@ build {
       access_token = "${var.cloud_token}"
       box_tag      = "${var.cloud_repo}"
       version      = "${var.version}"
-      architecture = "${lookup(var.vagrant_cloud_arch, var.arch, "amd64")}"
-    }
   }
 }
