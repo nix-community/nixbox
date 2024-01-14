@@ -61,6 +61,12 @@ vagrantcloud-create: ## Create Vagrant Cloud box
 	https://app.vagrantup.com/api/v2/boxes \
 	--data '{ "box": { "username": "'"${REPO_NAME}"'", "name": "'"${BOX_NAME}"'", "is_private": false } }'
 
+vagrantcloud-delete: ## Delete old Vagrant Cloud box
+	@curl \
+	--request DELETE \
+	--header "Authorization: Bearer ${ATLAS_TOKEN}" \
+	"https://app.vagrantup.com/api/v2/box/${REPO}/version/${VERSION}"
+
 vagrantcloud-update: ## Create Vagrant Cloud box
 	@curl \
 	--request PUT \
