@@ -195,5 +195,6 @@ build {
       access_token = "${var.cloud_token}"
       box_tag      = "${var.cloud_repo}"
       version      = "${var.version}"
+    }
   }
 }
