@@ -9,10 +9,8 @@
   # Use the GRUB 2 boot loader.
     grub = {
       enable = true;
-      grub = {
-        efiSupport = true;
-        device = "nodev";
-      };
+      efiSupport = true;
+      device = "nodev";
     };
   };
 }

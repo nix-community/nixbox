@@ -64,6 +64,11 @@ variable "boot_wait" {
   default = "120s"
 }
 
+variable "qemu_accelerator" {
+  type    = string
+  default = "kvm"
+}
+
 variable "cloud_repo" {
   type    = string
   default = "nixbox/nixos"
@@ -131,6 +136,30 @@ source "qemu" "qemu" {
   ssh_username         = "nixos"
 }
 
+source "qemu" "qemu-efi" {
+  boot_command         = [
+    "mkdir -m 0700 .ssh<enter>",
+    "curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/install_ed25519.pub > .ssh/authorized_keys<enter>",
+    "sudo systemctl start sshd<enter>"
+  ]
+  boot_wait            = var.boot_wait
+  disk_interface       = "virtio-scsi"
+  disk_size            = var.disk_size
+  format               = "qcow2"
+  headless             = false #true
+  http_directory       = "scripts"
+  iso_checksum         = var.iso_checksum
+  iso_url              = local.iso_url
+  qemuargs             = [["-m", var.memory]]
+  shutdown_command     = "sudo shutdown -h now"
+  machine_type         = "q35"
+  ssh_port             = 22
+  ssh_private_key_file = "./scripts/install_ed25519"
+  ssh_username         = "nixos"
+  efi_firmware_code    = "./efi_data/OVMF_CODE_4M.ms.fd"
+  #efi_firmware_vars    = "./efi_data/OVMF_VARS_4M.ms.fd"
+}
+
 source "virtualbox-iso" "virtualbox" {
   boot_command         = [
     "mkdir -m 0700 .ssh<enter>",
@@ -150,6 +179,28 @@ source "virtualbox-iso" "virtualbox" {
   ssh_port             = 22
   ssh_username         = "nixos"
   vboxmanage           = [["modifyvm", "{{ .Name }}", "--memory", var.memory, "--vram", "128", "--clipboard", "bidirectional"]]
+}
+
+source "virtualbox-iso" "virtualbox-efi" {
+  boot_command         = [
+    "mkdir -m 0700 .ssh<enter>",
+    "echo '{{ .SSHPublicKey }}' > .ssh/authorized_keys<enter>",
+    "sudo systemctl start sshd<enter>"
+  ]
+  boot_wait            = "45s"
+  disk_size            = var.disk_size
+  format               = "ova"
+  guest_additions_mode = "disable"
+  guest_os_type        = "Linux_64"
+  headless             = true
+  http_directory       = "scripts"
+  iso_checksum         = var.iso_checksum
+  iso_url              = local.iso_url
+  iso_interface        = "sata"
+  shutdown_command     = "sudo shutdown -h now"
+  ssh_port             = 22
+  ssh_username         = "nixos"
+  vboxmanage           = [["modifyvm", "{{ .Name }}", "--memory", var.memory, "--vram", "128", "--clipboard", "bidirectional", "--firmware", "EFI"]]
 }
 
 source "vmware-iso" "vmware" {
@@ -176,7 +227,9 @@ build {
   sources = [
     "source.hyperv-iso.hyperv",
     "source.qemu.qemu",
+    "source.qemu.qemu-efi",
     "source.virtualbox-iso.virtualbox",
+    "source.virtualbox-iso.virtualbox-efi",
     "source.vmware-iso.vmware"
   ]
 
@@ -191,11 +244,24 @@ build {
       only                = ["virtualbox-iso.virtualbox", "qemu.qemu", "hyperv-iso.hyperv"]
       output              = "nixos-${var.version}-${var.builder}-${var.arch}.box"
     }
+    post-processor "vagrant" {
+      keep_input_artifact = false
+      only                = ["virtualbox-iso.virtualbox-efi", "qemu.qemu-efi"]
+      output              = "nixos-${var.version}-efi-${var.builder}-${var.arch}.box"
+    }
     post-processor "vagrant-cloud" {
-      access_token = "${var.cloud_token}"
-      box_tag      = "${var.cloud_repo}"
-      version      = "${var.version}"
-      architecture = "${lookup(var.vagrant_cloud_arch, var.arch, "amd64")}"
+      only                = ["virtualbox-iso.virtualbox", "qemu.qemu", "hyperv-iso.hyperv"]
+      access_token        = "${var.cloud_token}"
+      box_tag             = "${var.cloud_repo}"
+      version             = "${var.version}"
+      architecture        = "${lookup(var.vagrant_cloud_arch, var.arch, "amd64")}"
+    }
+    post-processor "vagrant-cloud" {
+      only                = ["virtualbox-iso.virtualbox-efi", "qemu.qemu-efi"]
+      access_token        = "${var.cloud_token}"
+      box_tag             = "${var.cloud_repo}"
+      version             = "${var.version}-efi"
+      architecture        = "${lookup(var.vagrant_cloud_arch, var.arch, "amd64")}"
     }
   }
 }
