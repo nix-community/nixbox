@@ -2,7 +2,6 @@ BUILDER ?= virtualbox-iso.virtualbox
 VERSION ?= 23.05
 ARCH ?= x86_64
 REPO ?= nixbox/nixos
-CI_VERSION ?= ${GITHUB_REF#refs/heads/nixos-}
 REPO_NAME = $(word 1, $(subst /, ,${REPO}))
 BOX_NAME = $(word 2, $(subst /, ,${REPO}))
 BUILD_PROVIDER = $(word 2, $(subst ., ,${BUILDER}))
@@ -68,11 +67,13 @@ vagrantcloud-delete: ## Delete old Vagrant Cloud box
 	--header "Authorization: Bearer ${ATLAS_TOKEN}" \
 	"https://app.vagrantup.com/api/v2/box/${REPO}/version/${CI_VERSION}"
 
-vagrantcloud-release: ## Release Vagrant Cloude box
+vagrantcloud-update: ## Update Vagrant Cloud box
 	@curl \
 	--request PUT \
+	--header "Content-Type: application/json" \
 	--header "Authorization: Bearer ${ATLAS_TOKEN}" \
-	"https://app.vagrantup.com/api/v2/box/${REPO}/version/${CI_VERSION}/release"
+	"https://app.vagrantup.com/api/v2/box/${REPO}" \
+	--data '{ "box": { "username": "'"${REPO_NAME}"'", "name": "'"${BOX_NAME}"'", "is_private": false } }'
 
 packer-build:  nixos.pkr.hcl version ##Use packer push to vagrant-cloud
 	packer init $<

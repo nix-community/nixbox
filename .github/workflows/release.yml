@@ -41,6 +41,9 @@ jobs:
         ATLAS_TOKEN: ${{ secrets.ATLAS_TOKEN }}
       run:  CI_VERSION=${GITHUB_REF#refs/heads/nixos-} make vagrantcloud-delete
 
+    - name: Set Vagrant Cloud Box is Public
+      run: make vagrantcloud-update
+
     - name: Setup `packer`
       uses: hashicorp/setup-packer@main
       id: setup
