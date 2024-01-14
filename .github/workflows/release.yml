@@ -39,7 +39,7 @@ jobs:
     - name: Delete Old Vagrant Cloud Box Version
       env:
         ATLAS_TOKEN: ${{ secrets.ATLAS_TOKEN }}
-      run: make vagrantcloud-delete
+      run:  CI_VERSION=${GITHUB_REF#refs/heads/nixos-} make vagrantcloud-delete
 
     - name: Setup `packer`
       uses: hashicorp/setup-packer@main
