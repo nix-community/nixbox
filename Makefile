@@ -2,6 +2,9 @@ BUILDER ?= virtualbox-iso.virtualbox
 VERSION ?= 23.05
 ARCH ?= x86_64
 REPO ?= nixbox/nixos
+CI_VERSION ?= ${GITHUB_REF#refs/heads/nixos-}
+REPO_NAME = $(word 1, $(subst /, ,${REPO}))
+BOX_NAME = $(word 2, $(subst /, ,${REPO}))
 BUILD_PROVIDER = $(word 2, $(subst ., ,${BUILDER}))
 
 all: help
@@ -50,11 +53,27 @@ vagrant-push: vagrant-plugin ## Push builded vagrant box
 	--no-private \
 	--short-description "NixOS ${VERSION}" \
 	${REPO}-${VERSION} ${VERSION} ${BUILD_PROVIDER} nixos-${VERSION}-${BUILDER}-${ARCH}.box
+
+vagrantcloud-create: ## Create Vagrant Cloud box
+	@curl \
+	--request POST \
+	--header "Content-Type: application/json" \
+	--header "Authorization: Bearer ${ATLAS_TOKEN}" \
+	https://app.vagrantup.com/api/v2/boxes \
+	--data '{ "box": { "username": "'"${REPO_NAME}"'", "name": "'"${BOX_NAME}"'", "is_private": false } }'
+
+vagrantcloud-release: ## Release Vagrant CLoude box
+	@curl \
+	--request PUT \
+	--header "Authorization: Bearer ${ATLAS_TOKEN}" \
+	"https://app.vagrantup.com/api/v2/box/${REPO}/version/${CI_VERSION}/release"
+
 packer-build:  nixos.pkr.hcl version ##Use packer push to vagrant-cloud
 	packer init $<
 	packer build \
 	-var arch=${ARCH} \
 	-var builder="${BUILDER}" \
+	-var cloud_repo=${REPO} \
 	-var version=${VERSION} \
 	-var iso_checksum="$(shell curl -sL https://channels.nixos.org/nixos-${VERSION}/latest-nixos-minimal-${ARCH}-linux.iso.sha256 | grep -Eo '^[0-9a-z]{64}')" \
 	--only=${BUILDER} \
