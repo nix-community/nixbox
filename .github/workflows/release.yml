@@ -36,6 +36,11 @@ jobs:
         ATLAS_TOKEN: ${{ secrets.ATLAS_TOKEN }}
       run: make vagrantcloud-create
 
+    - name: Delete Old Vagrant Cloud Box Version
+      env:
+        ATLAS_TOKEN: ${{ secrets.ATLAS_TOKEN }}
+      run: make vagrantcloud-delete
+
     - name: Setup `packer`
       uses: hashicorp/setup-packer@main
       id: setup
