@@ -36,6 +36,9 @@ jobs:
         ATLAS_TOKEN: ${{ secrets.ATLAS_TOKEN }}
       run: make vagrantcloud-create
 
+    - name: Set Vagrant Cloud Box is Public
+      run: make vagrantcloud-update
+
     - name: Setup `packer`
       uses: hashicorp/setup-packer@main
       id: setup
