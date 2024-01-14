@@ -14,9 +14,7 @@ Usage
 -----
 
 ```shell
-vagrant init nixos/nixos-18.09-i686
-# or
-vagrant init nixos/nixos-18.09-x86_64
+vagrant init nixbox/nixos --box-version 23.05
 ```
 
 Also have a look at the accompanying nixos vagrant plugin:
@@ -56,8 +54,8 @@ Have a look at the different `make build` target to build your image.
 
 ```shell
 make build-all # Build latest version for all architectures
-make VERSION=22.05 build # Build specific version for x86_64 architecture
-make VERSION=22.05 ARCH=i686 build # Build specific version for specific architecture
+make VERSION=23.05 build # Build specific version for x86_64 architecture
+make VERSION=23.05 ARCH=i686 build # Build specific version for specific architecture
 
 make vagrant-add
 make vagrant-push
@@ -66,10 +64,10 @@ make vagrant-push
 If you build on a host that does not support Makefile, here are some examples:
 
 ```shell
-packer build --only=virtualbox-iso.virtualbox -var version=22.05 --except=vagrant-cloud nixos.pkr.hcl
-packer build --only=qemu.qemu -var version=22.05 --except=vagrant-cloud nixos.pkr.hcl
-packer build --only=vmware-iso.vmware -var version=22.05 --except=vagrant-cloud nixos.pkr.hcl
-packer build -var-file="nixos.auto.pkvars.hcl" --only=hyperv-iso.hyperv --except=vagrant-cloud nixos.pkr.hcl
+packer build --only=virtualbox-iso.virtualbox -var version=23.05 --except=vagrant-cloud nixos.pkr.hcl
+packer build --only=qemu.qemu -var version=23.05 --except=vagrant-cloud nixos.pkr.hcl
+packer build --only=vmware-iso.vmware -var version=23.05 --except=vagrant-cloud nixos.pkr.hcl
+packer build --only=hyperv-iso.hyperv -var version=23.05 --except=vagrant-cloud nixos.pkr.hcl
 ```
 
 The vagrant .box image is now ready to go and you can use it in vagrant:
@@ -101,7 +99,7 @@ Vagrant.configure("2") do |config|
 
   # Use a suitable NixOS base. VM built with nixbox are tested to work with
   # this plugin.
-  config.vm.box = "nixos-22.05"
+  config.vm.box = "nixos-23.05"
 
   # Add the htop package
   config.vm.provision :nixos,
