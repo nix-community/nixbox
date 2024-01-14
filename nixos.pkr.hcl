@@ -55,7 +55,7 @@ variable "disk_size" {
 
 variable "memory" {
   type    = string
-  default = "1024"
+  default = "2048"
 }
 
 variable "boot_wait" {
