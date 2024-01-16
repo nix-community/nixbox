@@ -41,6 +41,9 @@ vagrant-plugin:
 vagrant-add: vagrant-plugin ## Add vagrant box
 	@test -f nixos-${VERSION}-${BUILDER}-${ARCH}.box && ARCH=${ARCH} vagrant box add --force nixbox-${ARCH} nixos-${VERSION}-${BUILDER}-${ARCH}.box	
 
+vagrant-remove: vagrant-plugin ## Remove vagrant box
+	@vagrant box remove nixbox-${ARCH}
+
 vagrant-up: ## Try builded vagrant box
 	@ARCH="${ARCH}" vagrant up --provider ${BUILD_PROVIDER}
 
