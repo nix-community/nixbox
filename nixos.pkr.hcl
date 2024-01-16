@@ -146,7 +146,7 @@ source "qemu" "qemu-efi" {
   disk_interface       = "virtio-scsi"
   disk_size            = var.disk_size
   format               = "qcow2"
-  headless             = false #true
+  headless             = true
   http_directory       = "scripts"
   iso_checksum         = var.iso_checksum
   iso_url              = local.iso_url
@@ -187,7 +187,7 @@ source "virtualbox-iso" "virtualbox-efi" {
     "echo '{{ .SSHPublicKey }}' > .ssh/authorized_keys<enter>",
     "sudo systemctl start sshd<enter>"
   ]
-  boot_wait            = "45s"
+  boot_wait            = "55s"
   disk_size            = var.disk_size
   format               = "ova"
   guest_additions_mode = "disable"
@@ -241,13 +241,8 @@ build {
   post-processors {
     post-processor "vagrant" {
       keep_input_artifact = false
-      only                = ["virtualbox-iso.virtualbox", "qemu.qemu", "hyperv-iso.hyperv"]
+      only                = ["virtualbox-iso.virtualbox", "qemu.qemu", "hyperv-iso.hyperv", "virtualbox-iso.virtualbox-efi", "qemu.qemu-efi"]
       output              = "nixos-${var.version}-${var.builder}-${var.arch}.box"
-    }
-    post-processor "vagrant" {
-      keep_input_artifact = false
-      only                = ["virtualbox-iso.virtualbox-efi", "qemu.qemu-efi"]
-      output              = "nixos-${var.version}-efi-${var.builder}-${var.arch}.box"
     }
     post-processor "vagrant-cloud" {
       only                = ["virtualbox-iso.virtualbox", "qemu.qemu", "hyperv-iso.hyperv"]

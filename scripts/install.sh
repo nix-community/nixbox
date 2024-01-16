@@ -15,24 +15,35 @@ w
 
 FDISK
 
-# Create filesystem
-mkfs.ext4 -j -L nixos /dev/sda1
-
 elif [ $MACHINE_TYPE == "UEFI" ];then
 
 parted /dev/sda -- mklabel gpt
 parted /dev/sda -- mkpart root ext4 512MB 100%
 parted /dev/sda -- mkpart ESP fat32 1MB 512MB
 parted /dev/sda -- set 2 esp on
-
-mkfs.fat -F 32 -n boot /dev/sda2
-mkfs.ext4 -L nixos /dev/sda1
 fi
+
+# Create filesystem
+if [ $MACHINE_TYPE == "Legacy" ];then
+
+mkfs.ext4 -j -L nixos /dev/sda1
+
+elif [ $MACHINE_TYPE == "UEFI" ];then
+
+mkfs.fat -F 32 -n esp /dev/sda2
+mkfs.ext4 -L nixos /dev/sda1
+
+fi
+
 # Mount filesystem
 mount LABEL=nixos /mnt
 if [ $MACHINE_TYPE == "UEFI" ];then
-mkdir -p /mnt/boot
-mount /dev/disk/by-label/boot /mnt/boot
+mkdir -p /mnt/boot/efi
+if [ -e /dev/disk/by-label/esp ];then
+mount /dev/disk/by-label/esp /mnt/boot/efi
+else
+mount /dev/sda2 /mnt/boot/efi
+fi
 fi
 
 # Setup system

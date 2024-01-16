@@ -5,7 +5,7 @@ REPO ?= nixbox/nixos
 USE_EFI ?= false
 REPO_NAME = $(word 1, $(subst /, ,${REPO}))
 BOX_NAME = $(word 2, $(subst /, ,${REPO}))
-BUILD_PROVIDER = $(word 2, $(subst ., ,${BUILDER}))
+BUILD_PROVIDER = $(word 1, $(subst -, ,$(word 2, $(subst ., ,${BUILDER}))))
 
 ifeq ($(USE_EFI),true)
     BUILDER=${BUILDER}-efi
