@@ -47,10 +47,14 @@ First install [packer](http://packer.io) and
 
 Four packer builders are currently supported:
 
-- Virtualbox (`BUILDER=virtualbox-iso.virtualbox`)
-- qemu / libvirt (`BUILDER=qemu.qemu`)
-- VMware (`BUILDER=vmware-iso.vmware`)
-- Hyper-V (`BUILDER=hyperv-iso.hyperv`)
+- BIOS
+	- Virtualbox (`BUILDER=virtualbox-iso.virtualbox`)
+	- qemu / libvirt (`BUILDER=qemu.qemu`)
+	- VMware (`BUILDER=vmware-iso.vmware`)
+	- Hyper-V (`BUILDER=hyperv-iso.hyperv`)
+- UEFI
+        - Virtualbox (`BUILDER=virtualbox-iso.virtualbox-efi`)
+        - qemu / libvirt (`BUILDER=qemu.qemu-efi`)
 
 Have a look at the different `make build` target to build your image.
 
