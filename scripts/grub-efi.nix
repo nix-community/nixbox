@@ -3,16 +3,15 @@
 {
   boot.loader = {
     efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi"; # ← use the same mount point here.
+      canTouchEfiVariables = false;
+      efiSysMountPoint = "/boot/efi";
     };
   # Use the GRUB 2 boot loader.
     grub = {
       enable = true;
-      grub = {
-        efiSupport = true;
-        device = "nodev";
-      };
+      efiSupport = true;
+      device = "nodev";
+      efiInstallAsRemovable = true;
     };
   };
 }
