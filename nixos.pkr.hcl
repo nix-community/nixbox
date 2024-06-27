@@ -129,7 +129,11 @@ source "qemu" "qemu" {
   http_directory       = "scripts"
   iso_checksum         = var.iso_checksum
   iso_url              = local.iso_url
-  qemuargs             = [["-m", var.memory]]
+  qemuargs = [
+    ["-m", var.memory],
+    [ "-netdev", "user,hostfwd=tcp::{{ .SSHHostPort }}-:22,id=forward"],
+    [ "-device", "virtio-net,netdev=forward,id=net0"]
+  ]
   shutdown_command     = "sudo shutdown -h now"
   ssh_port             = 22
   ssh_private_key_file = "./scripts/install_ed25519"
@@ -150,7 +154,11 @@ source "qemu" "qemu-efi" {
   http_directory       = "scripts"
   iso_checksum         = var.iso_checksum
   iso_url              = local.iso_url
-  qemuargs             = [["-m", var.memory]]
+  qemuargs = [
+    ["-m", var.memory],
+    [ "-netdev", "user,hostfwd=tcp::{{ .SSHHostPort }}-:22,id=forward"],
+    [ "-device", "virtio-net,netdev=forward,id=net0"]
+  ]
   shutdown_command     = "sudo shutdown -h now"
   machine_type         = "q35"
   ssh_port             = 22
