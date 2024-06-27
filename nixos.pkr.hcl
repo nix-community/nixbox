@@ -64,6 +64,11 @@ variable "boot_wait" {
   default = "120s"
 }
 
+variable "ssh_timeout" {
+  type    = string
+  default = "15m"
+}
+
 variable "qemu_accelerator" {
   type    = string
   default = "kvm"
@@ -135,7 +140,7 @@ source "qemu" "qemu" {
     [ "-device", "virtio-net,netdev=forward,id=net0"]
   ]
   shutdown_command     = "sudo shutdown -h now"
-  ssh_timeout          = "15m"
+  ssh_timeout          = var.ssh_timeout
   ssh_port             = 22
   ssh_private_key_file = "./scripts/install_ed25519"
   ssh_username         = "nixos"
@@ -162,6 +167,7 @@ source "qemu" "qemu-efi" {
   ]
   shutdown_command     = "sudo shutdown -h now"
   machine_type         = "q35"
+  ssh_timeout          = var.ssh_timeout
   ssh_port             = 22
   ssh_private_key_file = "./scripts/install_ed25519"
   ssh_username         = "nixos"
@@ -185,6 +191,7 @@ source "virtualbox-iso" "virtualbox" {
   iso_checksum         = var.iso_checksum
   iso_url              = local.iso_url
   shutdown_command     = "sudo shutdown -h now"
+  ssh_timeout          = var.ssh_timeout
   ssh_port             = 22
   ssh_username         = "nixos"
   vboxmanage           = [["modifyvm", "{{ .Name }}", "--memory", var.memory, "--vram", "128", "--clipboard", "bidirectional"]]
@@ -207,6 +214,7 @@ source "virtualbox-iso" "virtualbox-efi" {
   iso_url              = local.iso_url
   iso_interface        = "sata"
   shutdown_command     = "sudo shutdown -h now"
+  ssh_timeout          = var.ssh_timeout
   ssh_port             = 22
   ssh_username         = "nixos"
   vboxmanage           = [["modifyvm", "{{ .Name }}", "--memory", var.memory, "--vram", "128", "--clipboard", "bidirectional", "--firmware", "EFI"]]
