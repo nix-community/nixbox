@@ -135,6 +135,7 @@ source "qemu" "qemu" {
     [ "-device", "virtio-net,netdev=forward,id=net0"]
   ]
   shutdown_command     = "sudo shutdown -h now"
+  ssh_timeout          = "15m"
   ssh_port             = 22
   ssh_private_key_file = "./scripts/install_ed25519"
   ssh_username         = "nixos"
