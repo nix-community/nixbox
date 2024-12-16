@@ -14,7 +14,7 @@ Usage
 -----
 
 ```shell
-vagrant init nixbox/nixos --box-version 23.11
+vagrant init nixbox/nixos --box-version 24.11
 ```
 
 Also have a look at the accompanying nixos vagrant plugin:
@@ -68,18 +68,18 @@ make vagrant-push
 If you build on a host that does not support Makefile, here are some examples:
 
 ```shell
-packer build --only=virtualbox-iso.virtualbox -var version=23.11 --except=vagrant-cloud nixos.pkr.hcl
-packer build --only=qemu.qemu -var version=23.11 --except=vagrant-cloud nixos.pkr.hcl
-packer build --only=vmware-iso.vmware -var version=23.11 --except=vagrant-cloud nixos.pkr.hcl
-packer build --only=hyperv-iso.hyperv -var version=23.11 --except=vagrant-cloud nixos.pkr.hcl
+packer build --only=virtualbox-iso.virtualbox -var version=24.11 --except=vagrant-cloud nixos.pkr.hcl
+packer build --only=qemu.qemu -var version=24.11 --except=vagrant-cloud nixos.pkr.hcl
+packer build --only=vmware-iso.vmware -var version=24.11 --except=vagrant-cloud nixos.pkr.hcl
+packer build --only=hyperv-iso.hyperv -var version=24.11 --except=vagrant-cloud nixos.pkr.hcl
 ```
 
 The vagrant .box image is now ready to go and you can use it in vagrant:
 
 ```shell
-vagrant box add nixbox32 nixos-23.11-libvirt-i686.box
+vagrant box add nixbox32 nixos-24.11-libvirt-i686.box
 # or
-vagrant box add nixbox64 nixos-23.11-virtualbox-x86_64.box
+vagrant box add nixbox64 nixos-24.11-virtualbox-x86_64.box
 ```
 
 Troubleshooting
@@ -103,7 +103,7 @@ Vagrant.configure("2") do |config|
 
   # Use a suitable NixOS base. VM built with nixbox are tested to work with
   # this plugin.
-  config.vm.box = "nixos-23.11"
+  config.vm.box = "nixos-24.11"
 
   # Add the htop package
   config.vm.provision :nixos,
