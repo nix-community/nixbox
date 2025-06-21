@@ -81,7 +81,7 @@ variable "cloud_id" {
 
 variable "cloud_client_secret" {
   type    = string
-  default = "${env("CLOUD_SECRET_TOKEN")}"
+  default = "${env("HCP_SECRET_TOKEN")}"
 }
 
 variable "vagrant_cloud_arch" {
