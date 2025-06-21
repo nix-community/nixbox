@@ -58,8 +58,8 @@ Have a look at the different `make build` target to build your image.
 
 ```shell
 make build-all # Build latest version for all architectures
-make VERSION=23.11 build # Build specific version for x86_64 architecture
-make VERSION=23.11 ARCH=i686 build # Build specific version for specific architecture
+make VERSION=24.11 build # Build specific version for x86_64 architecture
+make VERSION=24.11 ARCH=i686 build # Build specific version for specific architecture
 
 make vagrant-add
 make vagrant-push
