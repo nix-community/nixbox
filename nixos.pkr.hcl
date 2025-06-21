@@ -74,14 +74,15 @@ variable "cloud_repo" {
   default = "nixbox/nixos"
 }
 
-variable "cloud_id" {
+variable "cloud_client_id" {
   type    = string
-  default = "${env("HCP_ID")}"
+  default = "${env("HCP_CLIENT_ID")}"
 }
 
 variable "cloud_client_secret" {
   type    = string
   default = "${env("HCP_SECRET_TOKEN")}"
+  sensitive = true
 }
 
 variable "vagrant_cloud_arch" {
@@ -259,7 +260,7 @@ build {
     }
     post-processor "vagrant-registry" {
       only                = ["virtualbox-iso.virtualbox", "qemu.qemu", "hyperv-iso.hyperv"]
-      client_id           = "${var.cloud_id}"
+      client_id           = "${var.cloud_client_id}"
       client_secret       = "${var.cloud_client_secret}"
       box_tag             = "${var.cloud_repo}"
       version             = "${var.version}"
@@ -267,7 +268,7 @@ build {
     }
     post-processor "vagrant-registry" {
       only                = ["virtualbox-iso.virtualbox-efi", "qemu.qemu-efi"]
-      client_id           = "${var.cloud_id}"
+      client_id           = "${var.cloud_client_id}"
       client_secret       = "${var.cloud_client_secret}"
       box_tag             = "${var.cloud_repo}"
       version             = "${var.version}-efi"
