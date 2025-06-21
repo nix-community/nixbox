@@ -74,9 +74,14 @@ variable "cloud_repo" {
   default = "nixbox/nixos"
 }
 
-variable "cloud_token" {
+variable "cloud_id" {
   type    = string
-  default = "${env("ATLAS_TOKEN")}"
+  default = "${env("HCP_ID")}"
+}
+
+variable "cloud_client_secret" {
+  type    = string
+  default = "${env("CLOUD_SECRET_TOKEN")}"
 }
 
 variable "vagrant_cloud_arch" {
@@ -252,16 +257,18 @@ build {
       only                = ["virtualbox-iso.virtualbox", "qemu.qemu", "hyperv-iso.hyperv", "virtualbox-iso.virtualbox-efi", "qemu.qemu-efi"]
       output              = "nixos-${var.version}-${var.builder}-${var.arch}.box"
     }
-    post-processor "vagrant-cloud" {
+    post-processor "vagrant-registry" {
       only                = ["virtualbox-iso.virtualbox", "qemu.qemu", "hyperv-iso.hyperv"]
-      access_token        = "${var.cloud_token}"
+      client_id           = "${var.cloud_id}"
+      client_secret       = "${var.cloud_client_secret}"
       box_tag             = "${var.cloud_repo}"
       version             = "${var.version}"
       architecture        = "${lookup(var.vagrant_cloud_arch, var.arch, "amd64")}"
     }
-    post-processor "vagrant-cloud" {
+    post-processor "vagrant-registry" {
       only                = ["virtualbox-iso.virtualbox-efi", "qemu.qemu-efi"]
-      access_token        = "${var.cloud_token}"
+      client_id           = "${var.cloud_id}"
+      client_secret       = "${var.cloud_client_secret}"
       box_tag             = "${var.cloud_repo}"
       version             = "${var.version}-efi"
       architecture        = "${lookup(var.vagrant_cloud_arch, var.arch, "amd64")}"
