@@ -6,6 +6,16 @@ USE_EFI ?= false
 REPO_NAME = $(word 1, $(subst /, ,${REPO}))
 BOX_NAME = $(word 2, $(subst /, ,${REPO}))
 BUILD_PROVIDER = $(word 1, $(subst -, ,$(word 2, $(subst ., ,${BUILDER}))))
+ENVFILE ?=
+
+
+ifdef ENVFILE
+    include .env
+    export
+endif
+#export $(shell [ ! -n "$(ENVFILE)" ] || cat $(ENVFILE) | grep -v \
+#   --perl-regexp '^('$$(env | sed 's/=.*//'g | tr '\n' '|')')\=')
+
 
 ifeq ($(USE_EFI),true)
     BUILDER=${BUILDER}-efi
@@ -27,7 +37,7 @@ build: nixos.pkr.hcl version ## [BUILDER] [ARCH] [VERSION] Build packer image
 	-var version=${VERSION} \
 	-var iso_checksum="$(shell curl -sL https://channels.nixos.org/nixos-${VERSION}/latest-nixos-minimal-${ARCH}-linux.iso.sha256 | grep -Eo '^[0-9a-z]{64}')" \
 	--only=${BUILDER} \
-	--except=vagrant-cloud \
+	--except=vagrant-registry \
 	$<
 
 build-all: ## [BUILDER] [VERSION] Build packer image

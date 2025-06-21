@@ -5,3 +5,4 @@
 /output-virtualbox-iso
 /packer_cache
 /vendor
+.env
