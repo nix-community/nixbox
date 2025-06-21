@@ -8,6 +8,8 @@ jobs:
   build:
     name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }}
     runs-on: ubuntu-latest
+    env:
+      USER: nix
     strategy:
       matrix:
         BUILDER: ['virtualbox-iso.virtualbox', 'qemu.qemu']
