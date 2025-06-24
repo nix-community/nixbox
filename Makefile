@@ -10,11 +10,9 @@ ENVFILE ?=
 
 
 ifdef ENVFILE
-    include .env
+    include $(ENVFILE)
     export
 endif
-#export $(shell [ ! -n "$(ENVFILE)" ] || cat $(ENVFILE) | grep -v \
-#   --perl-regexp '^('$$(env | sed 's/=.*//'g | tr '\n' '|')')\=')
 
 
 ifeq ($(USE_EFI),true)
@@ -62,36 +60,6 @@ vagrant-ssh: ## Connect to vagrant box
 
 vagrant-destroy: ## Destroy vagrant box
 	@ARCH="${ARCH}" vagrant destroy
-
-vagrant-push: vagrant-plugin ## Push builded vagrant box
-	@test -f nixos-${VERSION}-${BUILDER}-${ARCH}.box && ARCH="${ARCH}" vagrant cloud publish \
-	--force \
-	--release \
-	--no-private \
-	--short-description "NixOS ${VERSION}" \
-	${REPO}-${VERSION} ${VERSION} ${BUILD_PROVIDER} nixos-${VERSION}-${BUILDER}-${ARCH}.box
-
-vagrantcloud-create: ## Create Vagrant Cloud box
-	@curl \
-	--request POST \
-	--header "Content-Type: application/json" \
-	--header "Authorization: Bearer ${ATLAS_TOKEN}" \
-	https://app.vagrantup.com/api/v2/boxes \
-	--data '{ "box": { "username": "'"${REPO_NAME}"'", "name": "'"${BOX_NAME}"'", "is_private": false } }'
-
-vagrantcloud-delete: ## Delete old Vagrant Cloud box
-	@curl \
-	--request DELETE \
-	--header "Authorization: Bearer ${ATLAS_TOKEN}" \
-	"https://app.vagrantup.com/api/v2/box/${REPO}/version/${VERSION}"
-
-vagrantcloud-update: ## Create Vagrant Cloud box
-	@curl \
-	--request PUT \
-	--header "Content-Type: application/json" \
-	--header "Authorization: Bearer ${ATLAS_TOKEN}" \
-	"https://app.vagrantup.com/api/v2/box/${REPO}" \
-	--data '{ "box": { "username": "'"${REPO_NAME}"'", "name": "'"${BOX_NAME}"'", "is_private": false } }'
 
 packer-build:  nixos.pkr.hcl version ##Use packer push to vagrant-cloud
 	packer init $<

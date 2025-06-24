@@ -43,5 +43,5 @@ jobs:
     - name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }} and push box to vagrant registry
       env:
         CLIENT_ID: ${{ secrets.HCP_CLIENT_ID }}
-        CLIENT_SECRETS: ${{ secrets.HCP_CLIENT_SECRET }}
+        CLIENT_SECRET: ${{ secrets.HCP_CLIENT_SECRET }}
       run: make VERSION=${GITHUB_REF#refs/heads/nixos-} BUILDER=${{ matrix.BUILDER }} packer-build

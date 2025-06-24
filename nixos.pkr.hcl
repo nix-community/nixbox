@@ -81,7 +81,7 @@ variable "cloud_client_id" {
 
 variable "cloud_client_secret" {
   type    = string
-  default = "${env("HCP_SECRET_TOKEN")}"
+  default = "${env("HCP_CLIENT_SECRET")}"
   sensitive = true
 }
 
