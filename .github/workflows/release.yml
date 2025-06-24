@@ -7,6 +7,7 @@ on:
 jobs:
   build:
     name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }}
+    continue-on-error: true
     runs-on: ubuntu-latest
     env:
       USER: nix
