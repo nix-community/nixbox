@@ -42,5 +42,6 @@ jobs:
 
     - name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }} and push box to vagrant registry
       env:
-        ATLAS_TOKEN: ${{ secrets.ATLAS_TOKEN }}
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        CLIENT_SECRETS: ${{ secrets.CLIENT_SECRET }}
       run: make VERSION=${GITHUB_REF#refs/heads/nixos-} BUILDER=${{ matrix.BUILDER }} packer-build
