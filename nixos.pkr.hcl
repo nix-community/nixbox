@@ -128,9 +128,10 @@ source "qemu" "qemu" {
     "sudo systemctl start sshd<enter>"
   ]
   boot_wait            = var.boot_wait
-  disk_interface       = "virtio-scsi"
-  disk_size            = var.disk_size
+  disk_interface       = "virtio"
+  disk_size            = "40960"
   format               = "qcow2"
+  accelerator          = var.qemu_accelerator
   headless             = true
   http_directory       = "scripts"
   iso_checksum         = var.iso_checksum
@@ -153,9 +154,10 @@ source "qemu" "qemu-efi" {
     "sudo systemctl start sshd<enter>"
   ]
   boot_wait            = var.boot_wait
-  disk_interface       = "virtio-scsi"
-  disk_size            = var.disk_size
+  disk_interface       = "virtio"
+  disk_size            = "40960"
   format               = "qcow2"
+  accelerator          = var.qemu_accelerator
   headless             = true
   http_directory       = "scripts"
   iso_checksum         = var.iso_checksum

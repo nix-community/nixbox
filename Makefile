@@ -1,5 +1,5 @@
-BUILDER ?= virtualbox-iso.virtualbox
-VERSION ?= 23.05
+BUILDER ?= qemu.qemu
+VERSION ?= 25.05
 ARCH ?= x86_64
 REPO ?= nixbox/nixos
 USE_EFI ?= false

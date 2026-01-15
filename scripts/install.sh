@@ -2,9 +2,20 @@
 
 export MACHINE_TYPE=$([ -d /sys/firmware/efi/efivars ] && echo "UEFI" || echo "Legacy")
 
+DEVICE="/dev/vda"
+echo "Using device: $DEVICE"
+
+# checking that the disk is avalable
+if [ ! -b "$DEVICE" ]; then
+  echo "ERROR: Device $DEVICE not available, unable to install!"
+  echo "Available block devices:"
+  lsblk
+  exit 1
+fi
+
 # Partition disk
 if [ $MACHINE_TYPE == "Legacy" ];then
-cat <<FDISK | fdisk /dev/sda
+cat <<FDISK | fdisk $DEVICE
 n
 
 
@@ -17,21 +28,21 @@ FDISK
 
 elif [ $MACHINE_TYPE == "UEFI" ];then
 
-parted /dev/sda -- mklabel gpt
-parted /dev/sda -- mkpart root ext4 512MB 100%
-parted /dev/sda -- mkpart ESP fat32 1MB 512MB
-parted /dev/sda -- set 2 esp on
+parted $DEVICE -- mklabel gpt
+parted $DEVICE -- mkpart root ext4 512MB 100%
+parted $DEVICE -- mkpart ESP fat32 1MB 512MB
+parted $DEVICE -- set 2 esp on
 fi
 
 # Create filesystem
 if [ $MACHINE_TYPE == "Legacy" ];then
 
-mkfs.ext4 -j -L nixos /dev/sda1
+mkfs.ext4 -j -L nixos ${DEVICE}1
 
 elif [ $MACHINE_TYPE == "UEFI" ];then
 
-mkfs.fat -F 32 -n esp /dev/sda2
-mkfs.ext4 -L nixos /dev/sda1
+mkfs.fat -F 32 -n esp ${DEVICE}2
+mkfs.ext4 -L nixos ${DEVICE}1
 
 fi
 
@@ -42,7 +53,7 @@ mkdir -p /mnt/boot/efi
 if [ -e /dev/disk/by-label/esp ];then
 mount /dev/disk/by-label/esp /mnt/boot/efi
 else
-mount /dev/sda2 /mnt/boot/efi
+mount ${DEVICE}2 /mnt/boot/efi
 fi
 fi
 
