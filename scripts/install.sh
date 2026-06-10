@@ -1,10 +1,11 @@
 #!/bin/sh -e
 
 export MACHINE_TYPE=$([ -d /sys/firmware/efi/efivars ] && echo "UEFI" || echo "Legacy")
+export DISK=$([ -e /dev/vda ] && echo 'vda' || echo 'sda')
 
 # Partition disk
 if [ $MACHINE_TYPE == "Legacy" ];then
-cat <<FDISK | fdisk /dev/sda
+cat <<FDISK | fdisk /dev/"$DISK"
 n
 
 
@@ -17,32 +18,32 @@ FDISK
 
 elif [ $MACHINE_TYPE == "UEFI" ];then
 
-parted /dev/sda -- mklabel gpt
-parted /dev/sda -- mkpart root ext4 512MB 100%
-parted /dev/sda -- mkpart ESP fat32 1MB 512MB
-parted /dev/sda -- set 2 esp on
+parted /dev/"$DISK" -- mklabel gpt
+parted /dev/"$DISK" -- mkpart root ext4 512MB 100%
+parted /dev/"$DISK" -- mkpart ESP fat32 1MB 512MB
+parted /dev/"$DISK" -- set 2 esp on
 fi
 
 # Create filesystem
 if [ $MACHINE_TYPE == "Legacy" ];then
 
-mkfs.ext4 -j -L nixos /dev/sda1
+mkfs.ext4 -j -L nixos /dev/"$DISK"1
 
 elif [ $MACHINE_TYPE == "UEFI" ];then
 
-mkfs.fat -F 32 -n esp /dev/sda2
-mkfs.ext4 -L nixos /dev/sda1
+mkfs.fat -F 32 -n esp /dev/"$DISK"2
+mkfs.ext4 -L nixos /dev/"$DISK"1
 
 fi
 
 # Mount filesystem
-mount LABEL=nixos /mnt
+mount -t ext4 LABEL=nixos /mnt
 if [ $MACHINE_TYPE == "UEFI" ];then
 mkdir -p /mnt/boot/efi
 if [ -e /dev/disk/by-label/esp ];then
-mount /dev/disk/by-label/esp /mnt/boot/efi
+mount -t vfat /dev/disk/by-label/esp /mnt/boot/efi
 else
-mount /dev/sda2 /mnt/boot/efi
+mount -t vfat /dev/"$DISK"2 /mnt/boot/efi
 fi
 fi
 
@@ -50,7 +51,9 @@ fi
 nixos-generate-config --root /mnt
 
 curl -sf "$PACKER_HTTP_ADDR/vagrant.nix" > /mnt/etc/nixos/vagrant.nix
-if [ $MACHINE_TYPE == "Legacy" ];then
+if [ $MACHINE_TYPE == "Legacy" -a $DISK == "vda" ];then
+curl -sf "$PACKER_HTTP_ADDR/grub-bios-vda.nix" > /mnt/etc/nixos/bootloader.nix
+elif [ $MACHINE_TYPE == "Legacy" ];then
 curl -sf "$PACKER_HTTP_ADDR/grub-bios.nix" > /mnt/etc/nixos/bootloader.nix
 elif [ $MACHINE_TYPE == "UEFI" ];then
 curl -sf "$PACKER_HTTP_ADDR/grub-efi.nix" > /mnt/etc/nixos/bootloader.nix

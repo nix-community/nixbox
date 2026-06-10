@@ -14,8 +14,10 @@ Usage
 -----
 
 ```shell
-vagrant init nixbox/nixos --box-version 23.11
+vagrant init nixbox/nixos-26.05-uefi
 ```
+
+To know the available boxes, refer to the [vagrant registry](https://portal.cloud.hashicorp.com/vagrant/discover/nixbox).
 
 Also have a look at the accompanying nixos vagrant plugin:
 <https://github.com/nix-community/vagrant-nixos-plugin>
@@ -51,8 +53,8 @@ Four packer builders are currently supported:
 	- VMware (`BUILDER=vmware-iso.vmware`)
 	- Hyper-V (`BUILDER=hyperv-iso.hyperv`)
 - UEFI
-        - Virtualbox (`BUILDER=virtualbox-iso.virtualbox-efi`)
-        - qemu / libvirt (`BUILDER=qemu.qemu-efi`)
+	- Virtualbox (`BUILDER=virtualbox-iso.virtualbox-efi`)
+	- qemu / libvirt (`BUILDER=qemu.qemu-efi`)
 
 Have a look at the different `make build` target to build your image.
 
@@ -68,25 +70,25 @@ make vagrant-push
 If you build on a host that does not support Makefile, here are some examples:
 
 ```shell
-packer build --only=virtualbox-iso.virtualbox -var version=23.11 --except=vagrant-cloud nixos.pkr.hcl
-packer build --only=qemu.qemu -var version=23.11 --except=vagrant-cloud nixos.pkr.hcl
-packer build --only=vmware-iso.vmware -var version=23.11 --except=vagrant-cloud nixos.pkr.hcl
-packer build --only=hyperv-iso.hyperv -var version=23.11 --except=vagrant-cloud nixos.pkr.hcl
+packer build --only=virtualbox-iso.virtualbox -var version=26.05 nixos.pkr.hcl
+packer build --only=qemu.qemu -var version=26.05 nixos.pkr.hcl
+packer build --only=vmware-iso.vmware -var version=26.05 nixos.pkr.hcl
+packer build --only=hyperv-iso.hyperv -var version=26.05 nixos.pkr.hcl
 ```
 
 The vagrant .box image is now ready to go and you can use it in vagrant:
 
 ```shell
-vagrant box add nixbox32 nixos-23.11-libvirt-i686.box
+vagrant box add nixos-26.05 nixos-26.05-libvirt-i686.box
 # or
-vagrant box add nixbox64 nixos-23.11-virtualbox-x86_64.box
+vagrant box add nixos-26.05 nixos-26.05-virtualbox-x86_64.box
 ```
 
 Troubleshooting
 ---------------
 
 - If you build on a Windows OS, please make sure you keep the unix file
-  encoding of the generated configuration files (see [issue\#30](https://github.com/nix-community/nixbox/issues/30)
+  encoding of the generated configuration files (see [issue\#30](https://github.com/nix-community/nixbox/issues/30))
 
 - Timeouts are a common issue for build failures. These can be a bit tough to
   figure out. increase the `boot_wait` value in `nixos.auto.pkvars.hcl` if you
@@ -103,7 +105,7 @@ Vagrant.configure("2") do |config|
 
   # Use a suitable NixOS base. VM built with nixbox are tested to work with
   # this plugin.
-  config.vm.box = "nixos-23.11"
+  config.vm.box = "nixos-26.05"
 
   # Add the htop package
   config.vm.provision :nixos,
@@ -121,4 +123,5 @@ License
 -------
 
 Copyright 2022 under the MIT
+
 Copyright 2015 under the MIT

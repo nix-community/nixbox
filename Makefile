@@ -1,11 +1,12 @@
 BUILDER ?= virtualbox-iso.virtualbox
-VERSION ?= 23.05
+VERSION ?= 26.05
 ARCH ?= x86_64
 REPO ?= nixbox/nixos
 USE_EFI ?= false
 REPO_NAME = $(word 1, $(subst /, ,${REPO}))
 BOX_NAME = $(word 2, $(subst /, ,${REPO}))
 BUILD_PROVIDER = $(word 1, $(subst -, ,$(word 2, $(subst ., ,${BUILDER}))))
+BUILD_RUN ?= 1
 ENVFILE ?=
 
 
@@ -68,6 +69,7 @@ packer-build:  nixos.pkr.hcl version ##Use packer push to vagrant-cloud
 	-var builder="${BUILDER}" \
 	-var cloud_repo=${REPO} \
 	-var version=${VERSION} \
+	-var build_run=${BUILD_RUN} \
 	-var iso_checksum="$(shell curl -sL https://channels.nixos.org/nixos-${VERSION}/latest-nixos-minimal-${ARCH}-linux.iso.sha256 | grep -Eo '^[0-9a-z]{64}')" \
 	--only=${BUILDER} \
 	$<

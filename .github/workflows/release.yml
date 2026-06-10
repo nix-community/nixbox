@@ -1,33 +1,43 @@
 name: Release CI
 
 on:
-  push:
-    branches: [ "nixos-**" ]
+  workflow_dispatch:
+  schedule:
+    - cron: 35 10 1,15 * *
 
 jobs:
-  build:
-    name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }}
-    continue-on-error: true
+  build-and-publish:
+    name: Run build ${{ matrix.VERSION }} ${{ matrix.BUILDER }} ${{ matrix.ARCH }}
     runs-on: ubuntu-latest
     env:
       USER: nix
     strategy:
       matrix:
-        BUILDER: ['virtualbox-iso.virtualbox', 'qemu.qemu']
+        BUILDER: ['virtualbox-iso.virtualbox', 'qemu.qemu', 'virtualbox-iso.virtualbox-efi', 'qemu.qemu-efi']
         ARCH: ['x86_64']
+        VERSION: ['25.11', '26.05', 'unstable']
+      fail-fast: false
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@master
+
+    - name: Adjust system.stateVersion
+      if: contains(matrix.VERSION, '.')
+      run: sed -i 's/}$/  system.stateVersion=\"${{ matrix.VERSION }}";\n}/' scripts/configuration.nix
+
+    - name: Adjust system.stateVersion
+      if: contains(matrix.VERSION, 'unstable')
+      run: sed -i 's/}$/  system.stateVersion="26.11";\n}/' scripts/configuration.nix
 
     - name: Install dependencies
-      if: ${{matrix.BUILDER == 'virtualbox-iso.virtualbox'}}
+      if: contains(matrix.BUILDER, 'virtualbox')
       run: |
         echo "deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
         wget -O- https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo gpg --yes --output /usr/share/keyrings/oracle-virtualbox-2016.gpg --dearmor
         sudo apt-get update
-        sudo apt-get install -y virtualbox-7.1
+        sudo apt-get install -y virtualbox-7.2
 
     - name: Install dependencies
-      if: ${{matrix.BUILDER == 'qemu.qemu'}}
+      if: contains(matrix.BUILDER, 'qemu')
       run: |
         sudo apt-get update
         sudo apt-get install -y \
@@ -40,20 +50,20 @@ jobs:
       with:
         version: "latest"
 
-    - name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }} and push box to vagrant registry
+    - name: Run build ${{ matrix.VERSION }} ${{ matrix.BUILDER }} ${{ matrix.ARCH }} and push box to vagrant registry
       if: github.repository == 'nix-community/nixbox'
       env:
         USER: nix
         LOGNAME: nix
         HCP_CLIENT_ID: ${{ secrets.HCP_CLIENT_ID }}
         HCP_CLIENT_SECRET: ${{ secrets.HCP_CLIENT_SECRET }}
-      run: sudo HCP_CLIENT_ID=$HCP_CLIENT_ID HCP_CLIENT_SECRET=$HCP_CLIENT_SECRET make VERSION=${GITHUB_REF#refs/heads/nixos-} BUILDER=${{ matrix.BUILDER }} packer-build
+      run: sudo HCP_CLIENT_ID=$HCP_CLIENT_ID HCP_CLIENT_SECRET=$HCP_CLIENT_SECRET make VERSION=${{ matrix.VERSION }} BUILDER=${{ matrix.BUILDER }} BUILD_RUN=${{ github.run_number }} packer-build
 
-    - name: Run build ${{ matrix.BUILDER }} ${{ matrix.ARCH }} and push box to vagrant registry
+    - name: Run build  ${{ matrix.VERSION }} ${{ matrix.BUILDER }} ${{ matrix.ARCH }} and push box to vagrant registry
       if: github.repository != 'nix-community/nixbox'
       env:
         USER: nix
         LOGNAME: nix
         HCP_CLIENT_ID: ${{ secrets.HCP_CLIENT_ID }}
         HCP_CLIENT_SECRET: ${{ secrets.HCP_CLIENT_SECRET }}
-      run: sudo HCP_CLIENT_ID=$HCP_CLIENT_ID HCP_CLIENT_SECRET=$HCP_CLIENT_SECRET make VERSION=${GITHUB_REF#refs/heads/nixos-} BUILDER=${{ matrix.BUILDER }} REPO=${{ vars.HCP_REPO }} packer-build
+      run: sudo HCP_CLIENT_ID=$HCP_CLIENT_ID HCP_CLIENT_SECRET=$HCP_CLIENT_SECRET make VERSION=${{ matrix.VERSION }} BUILDER=${{ matrix.BUILDER }} REPO=${{ vars.HCP_REPO }} BUILD_RUN=${{ github.run_number }} packer-build
